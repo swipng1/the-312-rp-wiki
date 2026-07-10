@@ -93,6 +93,10 @@ const CLASS_COLOR = {
   Epic: "text-amber-300 border-amber-500/50",
 };
 
+// Vite injects the real base path (e.g. "/the-312-rp-wiki/") here at build time,
+// so asset URLs work whether the site is hosted at a domain root or a subfolder.
+const ASSET_BASE = import.meta.env.BASE_URL;
+
 const STAT_LABELS = {
   damage: "Damage", range: "Range", fireRate: "Fire Rate", recoil: "Recoil",
   value: "Value", heat: "Heat", demand: "Demand",
@@ -255,7 +259,7 @@ export default function IllegalHelperSite() {
       <div className="sticky top-0 z-30 backdrop-blur bg-[#0B0D10]/85 border-b border-[#1E2126]">
         <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <img src="/assets/watermark.png" alt="The 312 RP" className="w-7 h-7 rounded object-cover" />
+            <img src={`${ASSET_BASE}assets/watermark.png`} alt="The 312 RP" className="w-7 h-7 rounded object-cover" />
             <span className="font-semibold tracking-tight text-[14px]" style={{ fontFamily: "'Oswald', sans-serif" }}>
               THE&nbsp;312&nbsp;<span className="text-[#C9722D]">RP</span>
             </span>
@@ -272,7 +276,7 @@ export default function IllegalHelperSite() {
       <div className="relative overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-60"
-          style={{ backgroundImage: "url('/assets/banner.png')" }}
+          style={{ backgroundImage: `url('${ASSET_BASE}assets/banner.png')` }}
         />
         {/* fade to bg color so text stays readable, heaviest on the left where copy sits */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B0D10] via-[#0B0D10]/85 to-[#0B0D10]/30" />
@@ -418,7 +422,7 @@ export default function IllegalHelperSite() {
       <div id="catalog" className="relative border-t border-[#1E2126] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-[position:center_20%] opacity-[0.12]"
-          style={{ backgroundImage: "url('/assets/icg_collage_1920x1080.png')" }}
+          style={{ backgroundImage: `url('${ASSET_BASE}assets/icg_collage_1920x1080.png')` }}
         />
         <div className="absolute inset-0 bg-[#0B0D10]/70" />
 
