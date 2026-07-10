@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from "react";
-import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, Radio, X } from "lucide-react";
+import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, X } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  DATA — swap this out for your real drop tables / skill trees      */
@@ -112,7 +112,7 @@ function EvidenceTag({ item, spinning, onClick }) {
       onClick={() => onClick(item)}
       className={`relative shrink-0 w-[132px] rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
     >
-      <div className="absolute top-1.5 right-1.5 z-10 text-[9px] font-mono tracking-wider px-1.5 py-0.5 rounded-sm bg-black/60 border border-[#3a3f47] text-[#C9722D] rotate-3">
+      <div className="absolute top-1.5 right-1.5 z-10 text-[9px] font-mono tracking-wider px-1.5 py-0.5 rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3">
         {item.tier.replace("Tier ", "T")}
       </div>
       <div className="h-20 flex items-center justify-center bg-[#0E1013] border-b border-[#2A2F37]">
@@ -130,7 +130,7 @@ function SectionLabel({ eyebrow, title, desc, right }) {
   return (
     <div className="flex items-start justify-between gap-6 flex-wrap mb-6">
       <div>
-        <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#C9722D] mb-2">{eyebrow}</div>
+        <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-2">{eyebrow}</div>
         <h2 className="text-3xl md:text-4xl font-bold text-[#EDEEF0] tracking-tight" style={{ fontFamily: "'Oswald', sans-serif" }}>{title}</h2>
         {desc && <p className="text-[#8B92A0] mt-2 max-w-xl text-[14px] leading-relaxed">{desc}</p>}
       </div>
@@ -147,7 +147,7 @@ function StatBar({ label, value }) {
         <span className="text-[11px] font-mono text-[#EDEEF0]">{value}</span>
       </div>
       <div className="h-1.5 rounded-full bg-[#1E2126] overflow-hidden">
-        <div className="h-full rounded-full bg-[#C9722D]" style={{ width: `${value}%` }} />
+        <div className="h-full rounded-full bg-[#5B8FC7]" style={{ width: `${value}%` }} />
       </div>
     </div>
   );
@@ -169,7 +169,7 @@ function DetailModal({ item, onClose }) {
           <button onClick={onClose} className="absolute top-3 right-3 w-7 h-7 rounded-md border border-[#2A2F37] bg-[#0B0D10]/70 flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
             <X size={14} />
           </button>
-          <div className="absolute top-3 left-3 text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/60 border border-[#3a3f47] text-[#C9722D]">
+          <div className="absolute top-3 left-3 text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/60 border border-[#3a3f47] text-[#5B8FC7]">
             {item.tier}
           </div>
         </div>
@@ -261,7 +261,7 @@ export default function IllegalHelperSite() {
           <div className="flex items-center gap-2.5">
             <img src={`${ASSET_BASE}assets/watermark.png`} alt="The 312 RP" className="w-7 h-7 rounded object-cover" />
             <span className="font-semibold tracking-tight text-[14px]" style={{ fontFamily: "'Oswald', sans-serif" }}>
-              THE&nbsp;312&nbsp;<span className="text-[#C9722D]">RP</span>
+              THE&nbsp;312&nbsp;<span className="text-[#5B8FC7]">RP</span>
             </span>
           </div>
           <div className="hidden md:flex items-center gap-6 text-[13px] text-[#8B92A0]">
@@ -283,19 +283,15 @@ export default function IllegalHelperSite() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D10] via-transparent to-[#0B0D10]/40" />
 
         <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-14">
-          <div className="flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-[#8B92A0] mb-5">
-            <Radio size={12} className="text-[#C9722D]" />
-            The 312 RP — Case File Open
-          </div>
           <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight max-w-2xl" style={{ fontFamily: "'Oswald', sans-serif" }}>
-            Everything your crew<br />needs on record.
+            The 312 Illegal Wiki
           </h1>
           <p className="text-[#8B92A0] mt-5 max-w-lg text-[15px] leading-relaxed">
             Browse the supply drop, check what each skill route unlocks, and look up
             every weapon and product the streets have to offer — before you commit to a run.
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
-            <a href="#drop" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md bg-[#C9722D] text-[#0B0D10] text-[13px] font-semibold hover:bg-[#dd7f34] transition-colors">
+            <a href="#drop" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md bg-[#5B8FC7] text-[#0B0D10] text-[13px] font-semibold hover:bg-[#78A5D6] transition-colors">
               <Dice5 size={15} /> Open supply drop
             </a>
             <a href="#catalog" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-[#2A2F37] text-[13px] font-medium hover:border-[#454b55] transition-colors">
@@ -320,7 +316,7 @@ export default function IllegalHelperSite() {
                 <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
                   {["Firearms", "Drugs"].map((c) => (
                     <button key={c} onClick={() => setRollCat(c)}
-                      className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollCat === c ? "bg-[#C9722D] text-[#0B0D10]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
+                      className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollCat === c ? "bg-[#5B8FC7] text-[#0B0D10]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
                       {c}
                     </button>
                   ))}
@@ -371,7 +367,7 @@ export default function IllegalHelperSite() {
           <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1 w-fit mb-6">
             {Object.keys(SKILLS).map((tab) => (
               <button key={tab} onClick={() => setSkillTab(tab)}
-                className={`px-3.5 py-1.5 rounded text-[12.5px] font-medium transition-colors ${skillTab === tab ? "bg-[#C9722D] text-[#0B0D10]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
+                className={`px-3.5 py-1.5 rounded text-[12.5px] font-medium transition-colors ${skillTab === tab ? "bg-[#5B8FC7] text-[#0B0D10]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
                 {tab}
               </button>
             ))}
@@ -388,7 +384,7 @@ export default function IllegalHelperSite() {
                   <div key={i} className="flex gap-4 px-4 py-4">
                     <div className="shrink-0 w-12 text-center">
                       <div className="text-[9px] font-mono tracking-widest text-[#8B92A0] uppercase">Unlock</div>
-                      <div className="text-2xl font-bold text-[#C9722D]" style={{ fontFamily: "'Oswald', sans-serif" }}>{s.unlock}</div>
+                      <div className="text-2xl font-bold text-[#5B8FC7]" style={{ fontFamily: "'Oswald', sans-serif" }}>{s.unlock}</div>
                     </div>
                     <div>
                       <div className="text-[14px] font-semibold text-[#EDEEF0]">{s.name}</div>
@@ -409,8 +405,8 @@ export default function IllegalHelperSite() {
                 <span className="text-[13px] font-semibold">Other path tabs</span>
                 <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#2A2F37] text-[#8B92A0]">Placeholder sets</span>
               </div>
-              <div className="rounded border border-[#C9722D]/30 bg-[#C9722D]/[0.06] p-3">
-                <div className="text-[11px] font-mono uppercase tracking-wider text-[#C9722D] mb-1">Guide note</div>
+              <div className="rounded border border-[#5B8FC7]/30 bg-[#5B8FC7]/[0.06] p-3">
+                <div className="text-[11px] font-mono uppercase tracking-wider text-[#5B8FC7] mb-1">Guide note</div>
                 <p className="text-[12.5px] text-[#a8adb8] leading-relaxed">{SKILLS[skillTab].note}</p>
               </div>
             </div>
@@ -437,7 +433,7 @@ export default function IllegalHelperSite() {
             <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
               {["All", "Firearms", "Drugs"].map((c) => (
                 <button key={c} onClick={() => setCatFilter(c)}
-                  className={`px-3.5 py-1.5 rounded text-[12.5px] font-medium transition-colors ${catFilter === c ? "bg-[#C9722D] text-[#0B0D10]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
+                  className={`px-3.5 py-1.5 rounded text-[12.5px] font-medium transition-colors ${catFilter === c ? "bg-[#5B8FC7] text-[#0B0D10]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
                   {c}
                 </button>
               ))}
