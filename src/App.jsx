@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useRef } from "react";
-import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, Radio } from "lucide-react";
+import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, Radio, X } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  DATA — swap this out for your real drop tables / skill trees      */
+/*  stats are 0-100 scale, used to draw the bars in the detail modal   */
 /* ------------------------------------------------------------------ */
 
 const TIERS = ["Tier 1", "Tier 1.5", "Tier 2"];
@@ -10,40 +11,52 @@ const TIERS = ["Tier 1", "Tier 1.5", "Tier 2"];
 const CATALOG = [
   { id: "gk19", name: "Glock 19", cat: "Firearms", tier: "Tier 1", class: "Common",
     desc: "Light sidearm for new runners. Cheap ammo, fast draw, forgiving recoil for early street work.",
-    tags: ["Low recoil", "Fast draw"] },
+    tags: ["Low recoil", "Fast draw"],
+    stats: { damage: 28, range: 35, fireRate: 72, recoil: 20 } },
   { id: "cp01", name: "Combat Pistol", cat: "Firearms", tier: "Tier 1", class: "Common",
     desc: "Bigger magazine than the Glock. Built for extended stand-offs where reload timing matters.",
-    tags: ["High ammo", "Reliable"] },
+    tags: ["High ammo", "Reliable"],
+    stats: { damage: 32, range: 38, fireRate: 65, recoil: 25 } },
   { id: "msmg", name: "Mini SMG", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
     desc: "Compact automatic built for vehicle fights and alley pushes. Close range only.",
-    tags: ["Close range", "Vehicle use"] },
+    tags: ["Close range", "Vehicle use"],
+    stats: { damage: 24, range: 20, fireRate: 85, recoil: 45 } },
   { id: "smg1", name: "SMG", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     desc: "Standard submachine gun with steady spray control. Solid on foot or in a chase.",
-    tags: ["Spray control", "Versatile"] },
+    tags: ["Spray control", "Versatile"],
+    stats: { damage: 30, range: 40, fireRate: 78, recoil: 38 } },
   { id: "pshot", name: "Pump Shotgun", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     desc: "Slow but devastating up close. One shot ends most indoor disputes.",
-    tags: ["Close range", "High damage"] },
+    tags: ["Close range", "High damage"],
+    stats: { damage: 90, range: 15, fireRate: 18, recoil: 70 } },
   { id: "hvp", name: "Heavy Pistol", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
     desc: "Upgraded stopping power over the standard sidearm. Common secondary for mid-tier crews.",
-    tags: ["Stopping power", "Secondary"] },
+    tags: ["Stopping power", "Secondary"],
+    stats: { damage: 45, range: 42, fireRate: 55, recoil: 40 } },
   { id: "carb", name: "Carbine Rifle", cat: "Firearms", tier: "Tier 2", class: "Epic",
     desc: "Full-auto mid-range rifle for crews who've earned it. Strong damage, open-street engagements.",
-    tags: ["Mid range", "Full auto"] },
+    tags: ["Mid range", "Full auto"],
+    stats: { damage: 55, range: 70, fireRate: 68, recoil: 48 } },
   { id: "scarb", name: "Special Carbine", cat: "Firearms", tier: "Tier 2", class: "Epic",
     desc: "Upgraded carbine variant with tighter handling — preferred for medium-range pushes.",
-    tags: ["Accuracy", "Mid range"] },
+    tags: ["Accuracy", "Mid range"],
+    stats: { damage: 58, range: 75, fireRate: 70, recoil: 35 } },
   { id: "grnl", name: "Green Leaf", cat: "Drugs", tier: "Tier 1", class: "Common",
     desc: "Entry-level product. Cheap to move, low heat, steady baseline income for a new operation.",
-    tags: ["Low heat", "Starter"] },
+    tags: ["Low heat", "Starter"],
+    stats: { value: 20, heat: 15, demand: 45 } },
   { id: "pwdr", name: "Cut Powder", cat: "Drugs", tier: "Tier 1.5", class: "Uncommon",
     desc: "Mid-grade product with better margins. Draws more attention once volume picks up.",
-    tags: ["Better margin", "Moderate heat"] },
+    tags: ["Better margin", "Moderate heat"],
+    stats: { value: 45, heat: 40, demand: 60 } },
   { id: "crys", name: "Crystal Batch", cat: "Drugs", tier: "Tier 2", class: "Rare",
     desc: "High-value product for established operations. Big payout, big risk if a run gets made.",
-    tags: ["High value", "High heat"] },
+    tags: ["High value", "High heat"],
+    stats: { value: 75, heat: 70, demand: 55 } },
   { id: "pill", name: "Pressed Pills", cat: "Drugs", tier: "Tier 2", class: "Epic",
     desc: "Top-tier product reserved for trusted crew. Rare drop, rarely sits in stock long.",
-    tags: ["Rare drop", "Trusted crew"] },
+    tags: ["Rare drop", "Trusted crew"],
+    stats: { value: 90, heat: 60, demand: 80 } },
 ];
 
 const SKILLS = {
@@ -80,13 +93,21 @@ const CLASS_COLOR = {
   Epic: "text-amber-300 border-amber-500/50",
 };
 
+const STAT_LABELS = {
+  damage: "Damage", range: "Range", fireRate: "Fire Rate", recoil: "Recoil",
+  value: "Value", heat: "Heat", demand: "Demand",
+};
+
 /* ------------------------------------------------------------------ */
 /*  SMALL PIECES                                                       */
 /* ------------------------------------------------------------------ */
 
-function EvidenceTag({ item, spinning }) {
+function EvidenceTag({ item, spinning, onClick }) {
   return (
-    <div className={`relative shrink-0 w-[132px] rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 ${spinning ? "scale-[0.97]" : ""}`}>
+    <button
+      onClick={() => onClick(item)}
+      className={`relative shrink-0 w-[132px] rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
+    >
       <div className="absolute top-1.5 right-1.5 z-10 text-[9px] font-mono tracking-wider px-1.5 py-0.5 rounded-sm bg-black/60 border border-[#3a3f47] text-[#C9722D] rotate-3">
         {item.tier.replace("Tier ", "T")}
       </div>
@@ -97,7 +118,7 @@ function EvidenceTag({ item, spinning }) {
         <div className="text-[12px] font-semibold text-[#EDEEF0] leading-tight truncate">{item.name}</div>
         <div className={`text-[10px] font-mono mt-0.5 ${CLASS_COLOR[item.class].split(" ")[0]}`}>{item.class}</div>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -110,6 +131,66 @@ function SectionLabel({ eyebrow, title, desc, right }) {
         {desc && <p className="text-[#8B92A0] mt-2 max-w-xl text-[14px] leading-relaxed">{desc}</p>}
       </div>
       {right}
+    </div>
+  );
+}
+
+function StatBar({ label, value }) {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-[11px] font-mono uppercase tracking-wide text-[#8B92A0]">{label}</span>
+        <span className="text-[11px] font-mono text-[#EDEEF0]">{value}</span>
+      </div>
+      <div className="h-1.5 rounded-full bg-[#1E2126] overflow-hidden">
+        <div className="h-full rounded-full bg-[#C9722D]" style={{ width: `${value}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function DetailModal({ item, onClose }) {
+  if (!item) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-md rounded-lg border border-[#2A2F37] bg-[#0E1013] overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative h-36 flex items-center justify-center bg-[#14171C] border-b border-[#2A2F37]">
+          {item.cat === "Firearms" ? <Crosshair size={40} className="text-[#454b55]" /> : <FlaskConical size={40} className="text-[#454b55]" />}
+          <button onClick={onClose} className="absolute top-3 right-3 w-7 h-7 rounded-md border border-[#2A2F37] bg-[#0B0D10]/70 flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
+            <X size={14} />
+          </button>
+          <div className="absolute top-3 left-3 text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/60 border border-[#3a3f47] text-[#C9722D]">
+            {item.tier}
+          </div>
+        </div>
+        <div className="p-5">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-[18px] font-semibold text-[#EDEEF0]" style={{ fontFamily: "'Oswald', sans-serif" }}>{item.name}</h3>
+            <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${CLASS_COLOR[item.class]}`}>{item.class}</span>
+          </div>
+          <p className="text-[13px] text-[#8B92A0] leading-relaxed mb-4">{item.desc}</p>
+
+          {item.stats && (
+            <div className="flex flex-col gap-3 mb-4">
+              {Object.entries(item.stats).map(([key, value]) => (
+                <StatBar key={key} label={STAT_LABELS[key] ?? key} value={value} />
+              ))}
+            </div>
+          )}
+
+          <div className="flex gap-1.5 flex-wrap">
+            {item.tags.map((t) => (
+              <span key={t} className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#2A2F37] text-[#8B92A0]">{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -129,6 +210,8 @@ export default function IllegalHelperSite() {
 
   const [catFilter, setCatFilter] = useState("All");
   const [query, setQuery] = useState("");
+
+  const [activeItem, setActiveItem] = useState(null);
 
   const rollPool = useMemo(
     () => CATALOG.filter((i) => i.cat === rollCat && i.tier === rollTier),
@@ -166,6 +249,8 @@ export default function IllegalHelperSite() {
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
       `}</style>
 
+      <DetailModal item={activeItem} onClose={() => setActiveItem(null)} />
+
       {/* NAV */}
       <div className="sticky top-0 z-30 backdrop-blur bg-[#0B0D10]/85 border-b border-[#1E2126]">
         <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
@@ -185,18 +270,13 @@ export default function IllegalHelperSite() {
 
       {/* HERO */}
       <div className="relative overflow-hidden">
-        {/* collage background — portrait crop on mobile, landscape on desktop */}
         <div
-          className="absolute inset-0 bg-cover bg-[position:75%_center] md:hidden opacity-[0.35]"
-          style={{ backgroundImage: "url('/assets/icg_collage.png')" }}
-        />
-        <div
-          className="hidden md:block absolute inset-0 bg-cover bg-[position:center_30%] opacity-[0.35]"
-          style={{ backgroundImage: "url('/assets/icg_collage_1920x1080.png')" }}
+          className="absolute inset-0 bg-cover bg-center opacity-60"
+          style={{ backgroundImage: "url('/assets/banner.png')" }}
         />
         {/* fade to bg color so text stays readable, heaviest on the left where copy sits */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0D10] via-[#0B0D10]/90 to-[#0B0D10]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D10] via-transparent to-[#0B0D10]/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0D10] via-[#0B0D10]/85 to-[#0B0D10]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D10] via-transparent to-[#0B0D10]/40" />
 
         <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-14">
           <div className="flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-[#8B92A0] mb-5">
@@ -230,7 +310,7 @@ export default function IllegalHelperSite() {
           <SectionLabel
             eyebrow="Random Draw"
             title="Supply Drop"
-            desc="Roll against the current tier's pool. Odds are shown by classification — Common through Epic."
+            desc="Roll against the current tier's pool. Odds are shown by classification — Common through Epic. Tap any tag for full stats."
             right={
               <div className="flex flex-col items-end gap-2">
                 <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
@@ -255,7 +335,7 @@ export default function IllegalHelperSite() {
 
           <div className="flex gap-3 overflow-x-auto pb-2 mb-4">
             {rollSlots.map((item, idx) => (
-              <EvidenceTag key={idx} item={item} spinning={spinning} />
+              <EvidenceTag key={idx} item={item} spinning={spinning} onClick={setActiveItem} />
             ))}
           </div>
 
@@ -335,12 +415,18 @@ export default function IllegalHelperSite() {
       </div>
 
       {/* CATALOG */}
-      <div id="catalog" className="border-t border-[#1E2126]">
-        <div className="max-w-6xl mx-auto px-6 py-14">
+      <div id="catalog" className="relative border-t border-[#1E2126] overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-[position:center_20%] opacity-[0.12]"
+          style={{ backgroundImage: "url('/assets/icg_collage_1920x1080.png')" }}
+        />
+        <div className="absolute inset-0 bg-[#0B0D10]/70" />
+
+        <div className="relative max-w-6xl mx-auto px-6 py-14">
           <SectionLabel
             eyebrow="All Items + Descriptions"
             title="Weapon & Product Catalog"
-            desc="A full browse area so players can see every main reward, what it's good for, and which playstyle it fits before pulling the random selector."
+            desc="A full browse area so players can see every main reward, what it's good for, and which playstyle it fits before pulling the random selector. Click a card for full stats."
           />
 
           <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -365,7 +451,11 @@ export default function IllegalHelperSite() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredCatalog.map((item) => (
-              <div key={item.id} className="rounded-md border border-[#2A2F37] bg-[#0E1013] overflow-hidden hover:border-[#454b55] transition-colors">
+              <button
+                key={item.id}
+                onClick={() => setActiveItem(item)}
+                className="text-left rounded-md border border-[#2A2F37] bg-[#0E1013] overflow-hidden hover:border-[#454b55] transition-colors"
+              >
                 <div className="h-28 flex items-center justify-center bg-[#14171C] border-b border-[#2A2F37]">
                   {item.cat === "Firearms" ? <Crosshair size={28} className="text-[#454b55]" /> : <FlaskConical size={28} className="text-[#454b55]" />}
                 </div>
@@ -381,7 +471,7 @@ export default function IllegalHelperSite() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
             {filteredCatalog.length === 0 && (
               <div className="col-span-full text-center py-12 text-[#5b6472] text-[13px]">No items match that search.</div>
