@@ -44,19 +44,19 @@ const CATALOG = [
   { id: "grnl", name: "Green Leaf", cat: "Drugs", tier: "Tier 1", class: "Common",
     desc: "Entry-level product. Cheap to move, low heat, steady baseline income for a new operation.",
     tags: ["Low heat", "Starter"],
-    stats: { value: 20, heat: 15, demand: 45 } },
+    stats: { duration: "300s", effect: "Mild speed boost, reduced stamina drain", weight: "0.08 kg" } },
   { id: "pwdr", name: "Cut Powder", cat: "Drugs", tier: "Tier 1.5", class: "Uncommon",
     desc: "Mid-grade product with better margins. Draws more attention once volume picks up.",
     tags: ["Better margin", "Moderate heat"],
-    stats: { value: 45, heat: 40, demand: 60 } },
+    stats: { duration: "450s", effect: "Increased stamina regen", weight: "0.05 kg" } },
   { id: "crys", name: "Crystal Batch", cat: "Drugs", tier: "Tier 2", class: "Rare",
     desc: "High-value product for established operations. Big payout, big risk if a run gets made.",
     tags: ["High value", "High heat"],
-    stats: { value: 75, heat: 70, demand: 55 } },
+    stats: { duration: "600s", effect: "Reduced aim sway, faster reload", weight: "0.03 kg" } },
   { id: "pill", name: "Pressed Pills", cat: "Drugs", tier: "Tier 2", class: "Epic",
     desc: "Top-tier product reserved for trusted crew. Rare drop, rarely sits in stock long.",
     tags: ["Rare drop", "Trusted crew"],
-    stats: { value: 90, heat: 60, demand: 80 } },
+    stats: { duration: "900s", effect: "Full health regen, stamina boost", weight: "0.02 kg" } },
 ];
 
 const SKILLS = {
@@ -99,7 +99,7 @@ const ASSET_BASE = import.meta.env.BASE_URL;
 
 const STAT_LABELS = {
   damage: "Damage", range: "Range", fireRate: "Fire Rate", recoil: "Recoil",
-  value: "Value", heat: "Heat", demand: "Demand",
+  duration: "Duration", effect: "Effect", weight: "Weight",
 };
 
 /* ------------------------------------------------------------------ */
@@ -195,6 +195,7 @@ function StatBar({ label, value }) {
 
 function DetailModal({ item, onClose }) {
   if (!item) return null;
+  const pillBase = "text-[11px] font-mono px-2.5 py-1 rounded-md border";
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4"
@@ -204,30 +205,49 @@ function DetailModal({ item, onClose }) {
         className="w-full max-w-md rounded-lg border border-[#2A2F37] bg-[#0E1013] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative h-36 flex items-center justify-center bg-[#14171C] border-b border-[#2A2F37]">
-          {item.cat === "Firearms" ? <Crosshair size={40} className="text-[#454b55]" /> : <FlaskConical size={40} className="text-[#454b55]" />}
-          <button onClick={onClose} className="absolute top-3 right-3 w-7 h-7 rounded-md border border-[#2A2F37] bg-[#0B0D10]/70 flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
-            <X size={14} />
-          </button>
-          {item.cat === "Firearms" && (
-            <div className="absolute top-3 left-3 text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/60 border border-[#3a3f47] text-[#5B8FC7]">
-              {item.tier}
-            </div>
-          )}
-        </div>
         <div className="p-5">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-[18px] font-semibold text-[#EDEEF0]" style={{ fontFamily: "'Oswald', sans-serif" }}>{item.name}</h3>
-            <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${CLASS_COLOR[item.class]}`}>{item.class}</span>
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex gap-1.5 flex-wrap">
+              <span className={`${pillBase} ${CLASS_COLOR[item.class]}`}>{item.class}</span>
+              <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>
+                {item.cat === "Firearms" ? "Weapon" : "Drug"}
+              </span>
+              {item.cat === "Firearms" && (
+                <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>{item.tier}</span>
+              )}
+            </div>
+            <button onClick={onClose} className="w-7 h-7 shrink-0 rounded-md border border-[#2A2F37] bg-[#14171C] flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
+              <X size={14} />
+            </button>
           </div>
-          <p className="text-[13px] text-[#8B92A0] leading-relaxed mb-4">{item.desc}</p>
+
+          <h3 className="text-[22px] font-bold text-[#EDEEF0] mb-3" style={{ fontFamily: "'Oswald', sans-serif" }}>{item.name}</h3>
+          <p className="text-[13px] text-[#8B92A0] leading-relaxed mb-5">{item.desc}</p>
 
           {item.stats && (
-            <div className="flex flex-col gap-3 mb-4">
-              {Object.entries(item.stats).map(([key, value]) => (
-                <StatBar key={key} label={STAT_LABELS[key] ?? key} value={value} />
-              ))}
-            </div>
+            <>
+              <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-3">
+                {item.cat === "Firearms" ? "Combat Stats" : "Item Stats"}
+              </div>
+              {item.cat === "Firearms" ? (
+                <div className="flex flex-col gap-3 mb-5">
+                  {Object.entries(item.stats).map(([key, value]) => (
+                    <StatBar key={key} label={STAT_LABELS[key] ?? key} value={value} />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2.5 mb-5">
+                  {Object.entries(item.stats).map(([key, value]) => (
+                    <div key={key} className="rounded-md border border-[#2A2F37] bg-[#14171C] px-3.5 py-2.5">
+                      <div className="text-[10px] font-mono tracking-[0.15em] uppercase text-[#8B92A0] mb-1">
+                        {STAT_LABELS[key] ?? key}
+                      </div>
+                      <div className="text-[15px] font-semibold text-[#EDEEF0]">{value}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
           )}
 
           <div className="flex gap-1.5 flex-wrap">
