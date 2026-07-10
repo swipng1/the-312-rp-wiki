@@ -106,25 +106,63 @@ const STAT_LABELS = {
 /*  SMALL PIECES                                                       */
 /* ------------------------------------------------------------------ */
 
-function EvidenceTag({ item, spinning, onClick }) {
+function EvidenceTag({ item, spinning, onClick, large }) {
   return (
     <button
       onClick={() => onClick(item)}
-      className={`relative shrink-0 w-[132px] rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
+      className={`relative shrink-0 ${large ? "w-full" : "w-[132px]"} rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
     >
-      <div className="absolute top-1.5 right-1.5 z-10 text-[9px] font-mono tracking-wider px-1.5 py-0.5 rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3">
+      <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
         {item.tier.replace("Tier ", "T")}
       </div>
-      <div className="h-20 flex items-center justify-center bg-[#0E1013] border-b border-[#2A2F37]">
-        {item.cat === "Firearms" ? <Crosshair size={26} className="text-[#5b6472]" /> : <FlaskConical size={26} className="text-[#5b6472]" />}
+      <div className={`flex items-center justify-center bg-[#0E1013] border-b border-[#2A2F37] ${large ? "h-36" : "h-20"}`}>
+        {item.cat === "Firearms" ? <Crosshair size={large ? 44 : 26} className={`text-[#5b6472] ${spinning ? "animate-pulse" : ""}`} /> : <FlaskConical size={large ? 44 : 26} className={`text-[#5b6472] ${spinning ? "animate-pulse" : ""}`} />}
       </div>
-      <div className="p-2">
-        <div className="text-[12px] font-semibold text-[#EDEEF0] leading-tight truncate">{item.name}</div>
-        <div className={`text-[10px] font-mono mt-0.5 ${CLASS_COLOR[item.class].split(" ")[0]}`}>{item.class}</div>
+      <div className={large ? "p-3.5" : "p-2"}>
+        <div className={`font-semibold text-[#EDEEF0] leading-tight truncate ${large ? "text-[16px]" : "text-[12px]"}`}>{item.name}</div>
+        <div className={`font-mono mt-0.5 ${large ? "text-[12px]" : "text-[10px]"} ${CLASS_COLOR[item.class].split(" ")[0]}`}>{item.class}</div>
       </div>
     </button>
   );
 }
+
+function WinModal({ item, onClose }) {
+  if (!item) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm px-4"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-sm rounded-lg border border-[#5B8FC7]/50 bg-[#0E1013] overflow-hidden shadow-[0_0_40px_-8px_rgba(91,143,199,0.5)]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative h-40 flex items-center justify-center bg-[#14171C] border-b border-[#5B8FC7]/30">
+          <button onClick={onClose} className="absolute top-3 right-3 w-7 h-7 rounded-md border border-[#2A2F37] bg-[#0B0D10]/70 flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
+            <X size={14} />
+          </button>
+          <div className="absolute top-3 left-3 text-[10px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 rounded bg-black/60 border border-[#5B8FC7]/40 text-[#5B8FC7]">
+            Drop Result
+          </div>
+          {item.cat === "Firearms" ? <Crosshair size={44} className="text-[#5B8FC7]" /> : <FlaskConical size={44} className="text-[#5B8FC7]" />}
+        </div>
+        <div className="p-5 text-center">
+          <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-1.5">You won</div>
+          <h3 className="text-[22px] font-bold text-[#EDEEF0] mb-1" style={{ fontFamily: "'Oswald', sans-serif" }}>{item.name}</h3>
+          <span className={`inline-block text-[11px] font-mono px-2 py-0.5 rounded border ${CLASS_COLOR[item.class]} mb-4`}>{item.class}</span>
+          <p className="text-[13px] text-[#8B92A0] leading-relaxed mb-5">{item.desc}</p>
+          <button
+            onClick={onClose}
+            className="w-full py-2.5 rounded-md bg-[#5B8FC7] text-[#0B0D10] font-semibold text-[13px] hover:bg-[#78A5D6] transition-colors"
+          >
+            Nice
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 function SectionLabel({ eyebrow, title, desc, right }) {
   return (
@@ -208,6 +246,7 @@ export default function IllegalHelperSite() {
   const [rollTier, setRollTier] = useState("Tier 1");
   const [rollSlots, setRollSlots] = useState(() => Array(8).fill(CATALOG[0]));
   const [spinning, setSpinning] = useState(false);
+  const [wonItem, setWonItem] = useState(null);
   const spinTimer = useRef(null);
 
   const [skillTab, setSkillTab] = useState("Faction");
@@ -233,6 +272,7 @@ export default function IllegalHelperSite() {
   function rollRandom() {
     if (rollPool.length === 0 || spinning) return;
     setSpinning(true);
+    setWonItem(null);
     let ticks = 0;
     clearInterval(spinTimer.current);
     spinTimer.current = setInterval(() => {
@@ -243,6 +283,11 @@ export default function IllegalHelperSite() {
       if (ticks > 12) {
         clearInterval(spinTimer.current);
         setSpinning(false);
+        setRollSlots((prev) => {
+          const finalPrize = prev[Math.floor(Math.random() * prev.length)];
+          setWonItem(finalPrize);
+          return prev;
+        });
       }
     }, 70);
   }
@@ -254,6 +299,7 @@ export default function IllegalHelperSite() {
       `}</style>
 
       <DetailModal item={activeItem} onClose={() => setActiveItem(null)} />
+      <WinModal item={wonItem} onClose={() => setWonItem(null)} />
 
       {/* NAV */}
       <div className="sticky top-0 z-30 backdrop-blur bg-[#0B0D10]/85 border-b border-[#1E2126]">
