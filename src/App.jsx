@@ -112,9 +112,11 @@ function EvidenceTag({ item, spinning, onClick, large }) {
       onClick={() => onClick(item)}
       className={`relative w-full rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
     >
-      <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
-        {item.tier.replace("Tier ", "T")}
-      </div>
+      {item.cat === "Firearms" && (
+        <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
+          {item.tier.replace("Tier ", "T")}
+        </div>
+      )}
       <div className={`flex items-center justify-center bg-[#0E1013] border-b border-[#2A2F37] ${large ? "h-36" : "h-20"}`}>
         {item.cat === "Firearms" ? <Crosshair size={large ? 44 : 26} className={`text-[#5b6472] ${spinning ? "animate-pulse" : ""}`} /> : <FlaskConical size={large ? 44 : 26} className={`text-[#5b6472] ${spinning ? "animate-pulse" : ""}`} />}
       </div>
@@ -207,9 +209,11 @@ function DetailModal({ item, onClose }) {
           <button onClick={onClose} className="absolute top-3 right-3 w-7 h-7 rounded-md border border-[#2A2F37] bg-[#0B0D10]/70 flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
             <X size={14} />
           </button>
-          <div className="absolute top-3 left-3 text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/60 border border-[#3a3f47] text-[#5B8FC7]">
-            {item.tier}
-          </div>
+          {item.cat === "Firearms" && (
+            <div className="absolute top-3 left-3 text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/60 border border-[#3a3f47] text-[#5B8FC7]">
+              {item.tier}
+            </div>
+          )}
         </div>
         <div className="p-5">
           <div className="flex items-center justify-between mb-2">
