@@ -110,7 +110,7 @@ function EvidenceTag({ item, spinning, onClick, large }) {
   return (
     <button
       onClick={() => onClick(item)}
-      className={`relative shrink-0 ${large ? "w-full" : "w-[132px]"} rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
+      className={`relative w-full rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
     >
       <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
         {item.tier.replace("Tier ", "T")}
@@ -379,7 +379,7 @@ export default function IllegalHelperSite() {
             }
           />
 
-          <div className="flex gap-3 overflow-x-auto pb-2 mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 mb-4">
             {rollSlots.map((item, idx) => (
               <EvidenceTag key={idx} item={item} spinning={spinning} onClick={setActiveItem} />
             ))}
