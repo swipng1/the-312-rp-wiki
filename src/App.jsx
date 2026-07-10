@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, X } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -257,9 +257,22 @@ export default function IllegalHelperSite() {
   const [activeItem, setActiveItem] = useState(null);
 
   const rollPool = useMemo(
-    () => CATALOG.filter((i) => i.cat === rollCat && i.tier === rollTier),
+    () => CATALOG.filter((i) => i.cat === rollCat && (rollCat !== "Firearms" || i.tier === rollTier)),
     [rollCat, rollTier]
   );
+
+  useEffect(() => {
+    if (spinning) return;
+    setWonItem(null);
+    if (rollPool.length === 0) {
+      setRollSlots(Array(8).fill(null));
+      return;
+    }
+    setRollSlots(
+      Array.from({ length: 8 }, () => rollPool[Math.floor(Math.random() * rollPool.length)])
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rollCat, rollTier]);
 
   const filteredCatalog = useMemo(() => {
     return CATALOG.filter((i) => {
@@ -367,22 +380,28 @@ export default function IllegalHelperSite() {
                     </button>
                   ))}
                 </div>
-                <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
-                  {TIERS.map((t) => (
-                    <button key={t} onClick={() => setRollTier(t)}
-                      className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollTier === t ? "bg-[#2A2F37] text-[#EDEEF0]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
-                      {t}
-                    </button>
-                  ))}
-                </div>
+                {rollCat === "Firearms" && (
+                  <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
+                    {TIERS.map((t) => (
+                      <button key={t} onClick={() => setRollTier(t)}
+                        className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollTier === t ? "bg-[#2A2F37] text-[#EDEEF0]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             }
           />
 
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 mb-4">
-            {rollSlots.map((item, idx) => (
-              <EvidenceTag key={idx} item={item} spinning={spinning} onClick={setActiveItem} />
-            ))}
+            {rollSlots.map((item, idx) =>
+              item ? (
+                <EvidenceTag key={idx} item={item} spinning={spinning} onClick={setActiveItem} />
+              ) : (
+                <div key={idx} className="rounded-md border border-dashed border-[#2A2F37] h-[152px]" />
+              )
+            )}
           </div>
 
           <button
