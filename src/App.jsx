@@ -521,7 +521,7 @@ function WeaponArt({ item, className = "", imgClass = "" }) {
   }
   return (
     <img
-      src={`${ASSET_BASE}assets/weapons/${item.icon}`}
+      src={`${ASSET_BASE}assets/${item.icon}`}
       alt={item.name}
       loading="lazy"
       className={`object-contain ${className}`}
