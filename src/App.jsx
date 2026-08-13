@@ -514,7 +514,7 @@ function StatBar({ statKey, label, value }) {
   );
 }
 
-// weapon art lives in public/assets/weapons and is already tinted by rarity
+// weapon art lives in public/assets and is already tinted by rarity
 function WeaponArt({ item, className = "", imgClass = "" }) {
   if (item.cat !== "Firearms" || !item.icon) {
     return <FlaskConical size={28} className={`text-[#454b55] ${imgClass}`} />;
