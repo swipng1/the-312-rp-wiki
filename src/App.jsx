@@ -332,91 +332,61 @@ const CATALOG = [
     stats: { damage: 26, magazine: 12, fireRate: 162, dps: 70, ttk: 2.59 } },
 
   /* ---------------- DRUGS — pulled from drugs.json ---------------- */
-  { id: "xanax", name: "Xanax", cat: "Drugs", tier: "Tier 2", class: "Mythic",
-    icon: "DRUG_XANAX.png", rank: 101,
-    desc: "Full heal the moment it goes down, then 10 health a tick for another thirty seconds on top. Costs you a little movement speed, but hands you 30% better vehicle handling for a full minute — the get-out-of-a-shootout pill.",
-    tags: ["Full heal", "Health regen", "Driving buff", "Slows you down"],
-    stats: { consume: "Pill", duration: "60s", effect: "+100 health instantly, +10 health regen for 30s, +30 vehicle handling for 60s", downside: "-10 movement speed for 30s" } },
   { id: "xanax3mg", name: "Xanax 3mg", cat: "Drugs", tier: "Tier 2", class: "Legendary",
-    icon: "DRUG_XANAX3MG.png", rank: 102,
+    icon: "DRUG_XANAX3MG.png", rank: 101,
     desc: "The green bar. 100 health regenerated across a full minute with nothing attached to pay for it — the strongest clean heal on the street.",
     tags: ["Health regen", "No downside", "Long duration"],
     stats: { consume: "Pill", duration: "60s", effect: "+100 health regen over 60s", downside: "None" } },
   { id: "xanax2mg", name: "Xanax 2mg", cat: "Drugs", tier: "Tier 2", class: "Epic",
-    rank: 103,
+    icon: "DRUG_XANAX2MG.png", rank: 102,
     desc: "Half the bar, half the heal. 50 health back over thirty seconds with no stagger and no vision hit — the one you pop mid-fight.",
     tags: ["Health regen", "No downside"],
     stats: { consume: "Pill", duration: "30s", effect: "+50 health regen over 30s", downside: "None" } },
   { id: "grenades", name: "Grenades", cat: "Drugs", tier: "Tier 2", class: "Epic",
-    icon: "DRUG_GRENADES.png", rank: 104,
+    icon: "DRUG_GRENADES.png", rank: 103,
     desc: "Flat 30 armor the second it lands, no timer and nothing owed. The biggest single armor hit in the pack and the cleanest pre-fight pop there is.",
     tags: ["Armor", "Instant", "No downside"],
     stats: { consume: "Pill", duration: "Instant", effect: "+30 armor", downside: "None" } },
   { id: "tpil", name: "Tessie Pill", cat: "Drugs", tier: "Tier 1.5", class: "Epic",
-    icon: "DRUG_TPIL.png", rank: 105,
+    icon: "DRUG_TPIL.png", rank: 104,
     desc: "20 armor up front plus 10% run speed for thirty seconds. Armor and legs out of one pill, which is why it rarely sits in stock long.",
     tags: ["Armor", "Run speed", "No downside"],
     stats: { consume: "Pill", duration: "30s", effect: "+20 armor, +10 run speed for 30s", downside: "None" } },
   { id: "twocb", name: "2CB", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
-    icon: "DRUG_2CB.png", rank: 106,
+    icon: "DRUG_2CB.png", rank: 105,
     desc: "25 armor instantly, nothing else attached. Five points behind Grenades and does effectively the same job for a lot less.",
     tags: ["Armor", "Instant", "No downside"],
     stats: { consume: "Pill", duration: "Instant", effect: "+25 armor", downside: "None" } },
   { id: "adderall", name: "Adderall", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
-    icon: "DRUG_ADDERALL.png", rank: 107,
+    icon: "DRUG_ADDERALL.png", rank: 106,
     desc: "Kills all screenshake until you restart — the closest thing to a scope on a switch. Costs 10 health and blurs your vision for the first thirty seconds.",
     tags: ["No screenshake", "Aim aid", "Blurred vision"],
     stats: { consume: "Snort", duration: "Until restart", effect: "Removes all screenshake", downside: "-10 health, blurred vision for 30s" } },
   { id: "perc", name: "Percocet", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
-    icon: "DRUG_PERC.png", rank: 108,
+    icon: "DRUG_PERC.png", rank: 107,
     desc: "Reactive 8 armor that holds for five full minutes — far and away the longest cover window on the list. You pay 30 health and walk with a heavy stagger while it settles.",
     tags: ["Reactive armor", "Long duration", "Heavy stagger"],
     stats: { consume: "Pill", duration: "300s", effect: "+8 reactive armor for 300s", downside: "-30 health, heavy stagger for 30s" } },
   { id: "xanax1mg", name: "Xanax 1mg", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
-    icon: "DRUG_XANAX1MG.png", rank: 109,
+    icon: "DRUG_XANAX1MG.png", rank: 108,
     desc: "The white oval. 25 health over fifteen seconds — a quick top-off between fights, nothing more than that.",
     tags: ["Health regen", "No downside", "Quick"],
     stats: { consume: "Pill", duration: "15s", effect: "+25 health regen over 15s", downside: "None" } },
   { id: "hydrocodone", name: "HydroCodone", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
-    icon: "DRUG_HYDROCODONE.png", rank: 110,
+    icon: "DRUG_HYDROCODONE.png", rank: 109,
     desc: "Reactive 8 armor for fifteen seconds, bought with 30 health and 25 thirst. The trade only pays if you're already in the fight when you take it.",
     tags: ["Reactive armor", "Short duration", "Health cost"],
     stats: { consume: "Pill", duration: "15s", effect: "+8 reactive armor for 15s", downside: "-30 health, -25 thirst" } },
   { id: "oxy", name: "Oxy", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
-    icon: "DRUG_OXY.png", rank: 111,
+    icon: "DRUG_OXY.png", rank: 110,
     desc: "Same numbers as Hydro down to the decimal — 8 reactive armor for fifteen seconds against 30 health and 25 thirst. Different label, identical trade.",
     tags: ["Reactive armor", "Short duration", "Health cost"],
     stats: { consume: "Pill", duration: "15s", effect: "+8 reactive armor for 15s", downside: "-30 health, -25 thirst" } },
   { id: "dmt", name: "DMT", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
-    icon: "DRUG_DMT.png", rank: 112,
+    icon: "DRUG_DMT.png", rank: 111,
     desc: "5 armor and a 15% run speed bump for fifteen seconds. Small numbers, but it's the only clean speed item this far down the list.",
     tags: ["Run speed", "Armor", "No downside"],
     stats: { consume: "Smoke", duration: "15s", effect: "+5 armor, +15 run speed for 15s", downside: "None" } },
-  { id: "shrooms", name: "Shrooms", cat: "Drugs", tier: "Tier 1", class: "Common",
-    icon: "DRUG_SHROOMS.png", rank: 113,
-    desc: "Pink wash over everything for thirty seconds and 20 hunger gone. Pure roleplay — no combat value in either direction.",
-    tags: ["Visual effect", "Roleplay", "No combat value"],
-    stats: { consume: "Pill", duration: "30s", effect: "Pink visual filter for 30s", downside: "-20 hunger" } },
-  { id: "molly", name: "Molly", cat: "Drugs", tier: "Tier 1", class: "Common",
-    rank: 114,
-    desc: "Thirty seconds of red vision and not one thing besides. Sells on the vibe, not on the stats.",
-    tags: ["Visual effect", "Roleplay"],
-    stats: { consume: "Pill", duration: "30s", effect: "Red visual filter for 30s", downside: "None" } },
-  { id: "k2", name: "K2", cat: "Drugs", tier: "Tier 1", class: "Common",
-    rank: 115,
-    desc: "Green wash and a moderate stagger for thirty seconds. All downside the moment a fight starts — take it somewhere quiet.",
-    tags: ["Visual effect", "Moderate stagger", "Roleplay"],
-    stats: { consume: "Smoke", duration: "30s", effect: "Green visual filter for 30s", downside: "Moderate stagger for 30s" } },
-  { id: "heroin", name: "Heroin", cat: "Drugs", tier: "Tier 1", class: "Common",
-    rank: 116,
-    desc: "Slight stagger, 10% off your movement and foggy vision for thirty seconds. Nothing in the numbers goes your way — this one's for the scene, not the fight.",
-    tags: ["Roleplay", "Slight stagger", "Slows you down"],
-    stats: { consume: "Needle", duration: "30s", effect: "Foggy visual filter, slight stagger", downside: "-10 movement speed for 30s" } },
-  { id: "tramadol", name: "Tramadol", cat: "Drugs", tier: "Tier 1", class: "Common",
-    rank: 117,
-    desc: "Heaviest downside on the board: 20% slower, moderate stagger and foggy vision, all of it for thirty seconds and none of it bought back.",
-    tags: ["Roleplay", "Moderate stagger", "Heavy slowdown"],
-    stats: { consume: "Pill", duration: "30s", effect: "Foggy visual filter, moderate stagger", downside: "-20 movement speed for 30s" } },
 ];
 
 const SKILLS = {
@@ -507,7 +477,7 @@ function EvidenceTag({ item, spinning, onClick, large }) {
   return (
     <button
       onClick={() => onClick(item)}
-      className={`relative w-full rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
+      className={`relative flex h-full w-full flex-col items-stretch rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
     >
       <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
         {item.tier.replace("Tier ", "T")}
@@ -984,17 +954,20 @@ export default function IllegalHelperSite() {
             {filteredCatalog.length} {filteredCatalog.length === 1 ? "item" : "items"}
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
             {filteredCatalog.map((item) => (
+              // flex + items-stretch is deliberate: a <button> gets `align-items: center`
+              // from the UA stylesheet, which vertically centres the card contents and
+              // makes rows of uneven-length descriptions look clipped/misaligned.
               <button
                 key={item.id}
                 onClick={() => setActiveItem(item)}
-                className="text-left rounded-md border border-[#2A2F37] bg-[#0E1013] overflow-hidden hover:border-[#454b55] transition-colors"
+                className="flex h-full flex-col items-stretch text-left rounded-md border border-[#2A2F37] bg-[#0E1013] overflow-hidden hover:border-[#454b55] transition-colors"
               >
-                <div className="h-28 flex items-center justify-center bg-[#14171C] border-b border-[#2A2F37] overflow-hidden">
+                <div className="h-28 shrink-0 flex items-center justify-center bg-[#14171C] border-b border-[#2A2F37] overflow-hidden">
                   <ItemArt item={item} fallbackSize={28} className="w-24 h-24" />
                 </div>
-                <div className="p-4">
+                <div className="p-4 flex flex-1 flex-col">
                   <div className="flex items-start justify-between gap-2 mb-1.5">
                     <span className="text-[14px] font-semibold text-[#EDEEF0] leading-tight">{item.name}</span>
                     <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded border ${CLASS_COLOR[item.class]}`}>{item.class}</span>
@@ -1003,7 +976,8 @@ export default function IllegalHelperSite() {
                     {item.kind ? `${item.kind} · #${item.rank} overall` : `${item.tier} · ${item.stats?.consume ?? "Product"}`}
                   </div>
                   <p className="text-[12.5px] text-[#8B92A0] leading-relaxed mb-3">{item.desc}</p>
-                  <div className="flex gap-1.5 flex-wrap">
+                  {/* mt-auto pins the tag row to the bottom so cards in a row line up */}
+                  <div className="mt-auto flex gap-1.5 flex-wrap">
                     {item.tags.map((t) => (
                       <span key={t} className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#2A2F37] text-[#8B92A0]">{t}</span>
                     ))}
