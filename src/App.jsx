@@ -3,9 +3,9 @@ import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, X } from 
 
 /* ------------------------------------------------------------------ */
 /*  DATA — swap this out for your real drop tables / skill trees      */
-/*  stats are 0-100 scale, used to draw the bars in the detail modal   */
+/*  weapon stats are real in-game values; drug stats come from         */
+/*  drugs.json (effects converted to readable strings)                 */
 /* ------------------------------------------------------------------ */
-
 const TIERS = ["Tier 1", "Tier 1.5", "Tier 2"];
 const KINDS = ["Pistol", "Rifle", "SMG"];
 
@@ -187,12 +187,12 @@ const CATALOG = [
     stats: { damage: 28, magazine: 18, fireRate: 600, dps: 280, ttk: 0.7 } },
   { id: "rldefc", name: "Ridgeline Defender C", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
     kind: "SMG", icon: "WEAPON_RLDEFC.webp", rank: 36,
-    desc: "Compact automatic at 600 RPM, but only 21 damage a round \u2014 10 body shots to put someone down. Volume of fire over stopping power.",
+    desc: "Compact automatic at 600 RPM, but only 21 damage a round — 10 body shots to put someone down. Volume of fire over stopping power.",
     tags: ["Full auto", "Wide spread"],
     stats: { damage: 21, magazine: 30, fireRate: 600, dps: 210, ttk: 0.9 } },
   { id: "rldef", name: "Ridgeline Defender SMG", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
     kind: "SMG", icon: "WEAPON_RLDEF.webp", rank: 37,
-    desc: "Compact automatic at 600 RPM, but only 21 damage a round \u2014 10 body shots to put someone down. Volume of fire over stopping power.",
+    desc: "Compact automatic at 600 RPM, but only 21 damage a round — 10 body shots to put someone down. Volume of fire over stopping power.",
     tags: ["Full auto", "Wide spread"],
     stats: { damage: 21, magazine: 30, fireRate: 600, dps: 210, ttk: 0.9 } },
   { id: "vs40mos", name: "Voss 40 MOS", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
@@ -227,32 +227,32 @@ const CATALOG = [
     stats: { damage: 35, magazine: 20, fireRate: 162, dps: 95, ttk: 1.85 } },
   { id: "vs23b", name: "Voss 23 Beam", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS23B.webp", rank: 44,
-    desc: "Standard semi-auto sidearm \u2014 28 damage, 50-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 28 damage, 50-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 162, dps: 76, ttk: 2.59 } },
   { id: "vs45camo", name: "Voss 45 Camo", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS45CAMO.webp", rank: 45,
-    desc: "Standard semi-auto sidearm \u2014 28 damage, 50-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 28 damage, 50-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 162, dps: 76, ttk: 2.59 } },
   { id: "vs17g5", name: "Voss 17 Gen5 MOS", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS17G5.webp", rank: 46,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 27, magazine: 50, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "vs19xblk", name: "Voss 19X Black", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS19XBLK.webp", rank: 47,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 27, magazine: 50, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "vs19xc", name: "Voss 19X Custom", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS19XC.webp", rank: 48,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 27, magazine: 50, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "vs22", name: "Voss 22", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS22.webp", rank: 49,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 27, magazine: 50, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "sb40t", name: "Sable 40 Tan", cat: "Firearms", tier: "Tier 1", class: "Common",
@@ -262,90 +262,161 @@ const CATALOG = [
     stats: { damage: 34, magazine: 14, fireRate: 162, dps: 92, ttk: 1.85 } },
   { id: "vs41", name: "Voss 41", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_VS41.webp", rank: 51,
-    desc: "Standard semi-auto sidearm \u2014 26 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 26 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 26, magazine: 50, fireRate: 162, dps: 70, ttk: 2.59 } },
   { id: "vsp80c", name: "Voss Custom P80", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_VSP80C.webp", rank: 52,
-    desc: "Standard semi-auto sidearm \u2014 26 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 26 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 26, magazine: 50, fireRate: 162, dps: 70, ttk: 2.59 } },
   { id: "pl20t", name: "Palisade 20 Tactical", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_PL20T.webp", rank: 53,
-    desc: "Standard semi-auto sidearm \u2014 32 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 32 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 32, magazine: 15, fireRate: 162, dps: 86, ttk: 2.22 } },
   { id: "vs19xcoy", name: "Voss 19X Coyote", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_VS19XCOY.webp", rank: 54,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 19-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 19-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 27, magazine: 19, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "vs43xc", name: "Voss 43X Custom", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_VS43XC.webp", rank: 55,
-    desc: "Standard semi-auto sidearm \u2014 29 damage, 10-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 29 damage, 10-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto"],
     stats: { damage: 29, magazine: 10, fireRate: 162, dps: 78, ttk: 2.22 } },
   { id: "pl1926hh", name: "Palisade 1926 Half N Half", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_PL1926HH.webp", rank: 56,
-    desc: "Standard semi-auto sidearm \u2014 28 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 28 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 28, magazine: 15, fireRate: 162, dps: 76, ttk: 2.59 } },
   { id: "vs17g3p80", name: "Voss 17 Gen3 P80", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_VS17G3P80.webp", rank: 57,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 27, magazine: 17, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "vs17g4c", name: "Voss 17 Gen4 Custom", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_VS17G4C.webp", rank: 58,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 27, magazine: 17, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "vs45am", name: "Voss 45 American", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_VS45AM.webp", rank: 59,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 27, magazine: 17, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "tl509c", name: "Talon 509 Custom", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_TL509C.webp", rank: 60,
-    desc: "Standard semi-auto sidearm \u2014 27 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 27 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 27, magazine: 15, fireRate: 162, dps: 73, ttk: 2.59 } },
   { id: "ks320c", name: "Kestrel 320 Custom", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_KS320C.webp", rank: 61,
-    desc: "Standard semi-auto sidearm \u2014 26 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 26 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 26, magazine: 17, fireRate: 162, dps: 70, ttk: 2.59 } },
   { id: "plp8019", name: "Palisade P80 19", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_PLP8019.webp", rank: 62,
-    desc: "Standard semi-auto sidearm \u2014 26 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 26 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 26, magazine: 15, fireRate: 162, dps: 70, ttk: 2.59 } },
   { id: "sb92c", name: "Sable 9 2.0 Custom", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_SB92C.webp", rank: 63,
-    desc: "Standard semi-auto sidearm \u2014 26 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 26 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 26, magazine: 15, fireRate: 162, dps: 70, ttk: 2.59 } },
   { id: "tl502t", name: "Talon 502 Tactical", cat: "Firearms", tier: "Tier 1", class: "Common",
     kind: "Pistol", icon: "WEAPON_TL502T.webp", rank: 64,
-    desc: "Standard semi-auto sidearm \u2014 26 damage, 12-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
+    desc: "Standard semi-auto sidearm — 26 damage, 12-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 26, magazine: 12, fireRate: 162, dps: 70, ttk: 2.59 } },
-  { id: "grnl", name: "Green Leaf", cat: "Drugs", tier: "Tier 1", class: "Common",
-    desc: "Entry-level product. Cheap to move, low heat, steady baseline income for a new operation.",
-    tags: ["Low heat", "Starter"],
-    stats: { duration: "300s", effect: "Mild speed boost, reduced stamina drain", weight: "0.08 kg" } },
-  { id: "pwdr", name: "Cut Powder", cat: "Drugs", tier: "Tier 1.5", class: "Uncommon",
-    desc: "Mid-grade product with better margins. Draws more attention once volume picks up.",
-    tags: ["Better margin", "Moderate heat"],
-    stats: { duration: "450s", effect: "Increased stamina regen", weight: "0.05 kg" } },
-  { id: "crys", name: "Crystal Batch", cat: "Drugs", tier: "Tier 2", class: "Rare",
-    desc: "High-value product for established operations. Big payout, big risk if a run gets made.",
-    tags: ["High value", "High heat"],
-    stats: { duration: "600s", effect: "Reduced aim sway, faster reload", weight: "0.03 kg" } },
-  { id: "pill", name: "Pressed Pills", cat: "Drugs", tier: "Tier 2", class: "Epic",
-    desc: "Top-tier product reserved for trusted crew. Rare drop, rarely sits in stock long.",
-    tags: ["Rare drop", "Trusted crew"],
-    stats: { duration: "900s", effect: "Full health regen, stamina boost", weight: "0.02 kg" } },
+
+  /* ---------------- DRUGS — pulled from drugs.json ---------------- */
+  { id: "xanax", name: "Xanax", cat: "Drugs", tier: "Tier 2", class: "Mythic",
+    icon: "DRUG_XANAX.png", rank: 101,
+    desc: "Full heal the moment it goes down, then 10 health a tick for another thirty seconds on top. Costs you a little movement speed, but hands you 30% better vehicle handling for a full minute — the get-out-of-a-shootout pill.",
+    tags: ["Full heal", "Health regen", "Driving buff", "Slows you down"],
+    stats: { consume: "Pill", duration: "60s", effect: "+100 health instantly, +10 health regen for 30s, +30 vehicle handling for 60s", downside: "-10 movement speed for 30s" } },
+  { id: "xanax3mg", name: "Xanax 3mg", cat: "Drugs", tier: "Tier 2", class: "Legendary",
+    icon: "DRUG_XANAX3MG.png", rank: 102,
+    desc: "The green bar. 100 health regenerated across a full minute with nothing attached to pay for it — the strongest clean heal on the street.",
+    tags: ["Health regen", "No downside", "Long duration"],
+    stats: { consume: "Pill", duration: "60s", effect: "+100 health regen over 60s", downside: "None" } },
+  { id: "xanax2mg", name: "Xanax 2mg", cat: "Drugs", tier: "Tier 2", class: "Epic",
+    rank: 103,
+    desc: "Half the bar, half the heal. 50 health back over thirty seconds with no stagger and no vision hit — the one you pop mid-fight.",
+    tags: ["Health regen", "No downside"],
+    stats: { consume: "Pill", duration: "30s", effect: "+50 health regen over 30s", downside: "None" } },
+  { id: "grenades", name: "Grenades", cat: "Drugs", tier: "Tier 2", class: "Epic",
+    icon: "DRUG_GRENADES.png", rank: 104,
+    desc: "Flat 30 armor the second it lands, no timer and nothing owed. The biggest single armor hit in the pack and the cleanest pre-fight pop there is.",
+    tags: ["Armor", "Instant", "No downside"],
+    stats: { consume: "Pill", duration: "Instant", effect: "+30 armor", downside: "None" } },
+  { id: "tpil", name: "Tessie Pill", cat: "Drugs", tier: "Tier 1.5", class: "Epic",
+    icon: "DRUG_TPIL.png", rank: 105,
+    desc: "20 armor up front plus 10% run speed for thirty seconds. Armor and legs out of one pill, which is why it rarely sits in stock long.",
+    tags: ["Armor", "Run speed", "No downside"],
+    stats: { consume: "Pill", duration: "30s", effect: "+20 armor, +10 run speed for 30s", downside: "None" } },
+  { id: "twocb", name: "2CB", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
+    icon: "DRUG_2CB.png", rank: 106,
+    desc: "25 armor instantly, nothing else attached. Five points behind Grenades and does effectively the same job for a lot less.",
+    tags: ["Armor", "Instant", "No downside"],
+    stats: { consume: "Pill", duration: "Instant", effect: "+25 armor", downside: "None" } },
+  { id: "adderall", name: "Adderall", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
+    icon: "DRUG_ADDERALL.png", rank: 107,
+    desc: "Kills all screenshake until you restart — the closest thing to a scope on a switch. Costs 10 health and blurs your vision for the first thirty seconds.",
+    tags: ["No screenshake", "Aim aid", "Blurred vision"],
+    stats: { consume: "Snort", duration: "Until restart", effect: "Removes all screenshake", downside: "-10 health, blurred vision for 30s" } },
+  { id: "perc", name: "Percocet", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
+    icon: "DRUG_PERC.png", rank: 108,
+    desc: "Reactive 8 armor that holds for five full minutes — far and away the longest cover window on the list. You pay 30 health and walk with a heavy stagger while it settles.",
+    tags: ["Reactive armor", "Long duration", "Heavy stagger"],
+    stats: { consume: "Pill", duration: "300s", effect: "+8 reactive armor for 300s", downside: "-30 health, heavy stagger for 30s" } },
+  { id: "xanax1mg", name: "Xanax 1mg", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
+    icon: "DRUG_XANAX1MG.png", rank: 109,
+    desc: "The white oval. 25 health over fifteen seconds — a quick top-off between fights, nothing more than that.",
+    tags: ["Health regen", "No downside", "Quick"],
+    stats: { consume: "Pill", duration: "15s", effect: "+25 health regen over 15s", downside: "None" } },
+  { id: "hydrocodone", name: "HydroCodone", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
+    icon: "DRUG_HYDROCODONE.png", rank: 110,
+    desc: "Reactive 8 armor for fifteen seconds, bought with 30 health and 25 thirst. The trade only pays if you're already in the fight when you take it.",
+    tags: ["Reactive armor", "Short duration", "Health cost"],
+    stats: { consume: "Pill", duration: "15s", effect: "+8 reactive armor for 15s", downside: "-30 health, -25 thirst" } },
+  { id: "oxy", name: "Oxy", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
+    icon: "DRUG_OXY.png", rank: 111,
+    desc: "Same numbers as Hydro down to the decimal — 8 reactive armor for fifteen seconds against 30 health and 25 thirst. Different label, identical trade.",
+    tags: ["Reactive armor", "Short duration", "Health cost"],
+    stats: { consume: "Pill", duration: "15s", effect: "+8 reactive armor for 15s", downside: "-30 health, -25 thirst" } },
+  { id: "dmt", name: "DMT", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
+    icon: "DRUG_DMT.png", rank: 112,
+    desc: "5 armor and a 15% run speed bump for fifteen seconds. Small numbers, but it's the only clean speed item this far down the list.",
+    tags: ["Run speed", "Armor", "No downside"],
+    stats: { consume: "Smoke", duration: "15s", effect: "+5 armor, +15 run speed for 15s", downside: "None" } },
+  { id: "shrooms", name: "Shrooms", cat: "Drugs", tier: "Tier 1", class: "Common",
+    icon: "DRUG_SHROOMS.png", rank: 113,
+    desc: "Pink wash over everything for thirty seconds and 20 hunger gone. Pure roleplay — no combat value in either direction.",
+    tags: ["Visual effect", "Roleplay", "No combat value"],
+    stats: { consume: "Pill", duration: "30s", effect: "Pink visual filter for 30s", downside: "-20 hunger" } },
+  { id: "molly", name: "Molly", cat: "Drugs", tier: "Tier 1", class: "Common",
+    rank: 114,
+    desc: "Thirty seconds of red vision and not one thing besides. Sells on the vibe, not on the stats.",
+    tags: ["Visual effect", "Roleplay"],
+    stats: { consume: "Pill", duration: "30s", effect: "Red visual filter for 30s", downside: "None" } },
+  { id: "k2", name: "K2", cat: "Drugs", tier: "Tier 1", class: "Common",
+    rank: 115,
+    desc: "Green wash and a moderate stagger for thirty seconds. All downside the moment a fight starts — take it somewhere quiet.",
+    tags: ["Visual effect", "Moderate stagger", "Roleplay"],
+    stats: { consume: "Smoke", duration: "30s", effect: "Green visual filter for 30s", downside: "Moderate stagger for 30s" } },
+  { id: "heroin", name: "Heroin", cat: "Drugs", tier: "Tier 1", class: "Common",
+    rank: 116,
+    desc: "Slight stagger, 10% off your movement and foggy vision for thirty seconds. Nothing in the numbers goes your way — this one's for the scene, not the fight.",
+    tags: ["Roleplay", "Slight stagger", "Slows you down"],
+    stats: { consume: "Needle", duration: "30s", effect: "Foggy visual filter, slight stagger", downside: "-10 movement speed for 30s" } },
+  { id: "tramadol", name: "Tramadol", cat: "Drugs", tier: "Tier 1", class: "Common",
+    rank: 117,
+    desc: "Heaviest downside on the board: 20% slower, moderate stagger and foggy vision, all of it for thirty seconds and none of it bought back.",
+    tags: ["Roleplay", "Moderate stagger", "Heavy slowdown"],
+    stats: { consume: "Pill", duration: "30s", effect: "Foggy visual filter, moderate stagger", downside: "-20 movement speed for 30s" } },
 ];
 
 const SKILLS = {
@@ -393,7 +464,7 @@ const ASSET_BASE = import.meta.env.BASE_URL;
 
 const STAT_LABELS = {
   damage: "Damage", magazine: "Magazine", fireRate: "Fire Rate", dps: "DPS", ttk: "Time to Kill",
-  duration: "Duration", effect: "Effect", weight: "Weight",
+  consume: "Taken As", duration: "Duration", effect: "Effect", downside: "Downside", weight: "Weight",
 };
 
 // real-world maximums across the pack, so each bar is scaled against the best weapon
@@ -406,9 +477,31 @@ const STAT_SCALE = {
   ttk:      { max: 2.6, unit: "s", invert: true },
 };
 
+// how many of each category exist, for the "#N of X" line
+const COUNTS = {
+  Firearms: CATALOG.filter((i) => i.cat === "Firearms").length,
+  Drugs: CATALOG.filter((i) => i.cat === "Drugs").length,
+};
+
 /* ------------------------------------------------------------------ */
 /*  SMALL PIECES                                                       */
 /* ------------------------------------------------------------------ */
+
+// artwork lives in public/assets — weapons are .webp, drugs are .png.
+// Anything without an `icon` falls back to the generic flask.
+function ItemArt({ item, className = "", fallbackSize = 28, fallbackClass = "text-[#454b55]" }) {
+  if (!item?.icon) {
+    return <FlaskConical size={fallbackSize} className={fallbackClass} />;
+  }
+  return (
+    <img
+      src={`${ASSET_BASE}assets/${item.icon}`}
+      alt={item.name}
+      loading="lazy"
+      className={`object-contain ${className}`}
+    />
+  );
+}
 
 function EvidenceTag({ item, spinning, onClick, large }) {
   return (
@@ -416,15 +509,18 @@ function EvidenceTag({ item, spinning, onClick, large }) {
       onClick={() => onClick(item)}
       className={`relative w-full rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
     >
-      {item.cat === "Firearms" && (
-        <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
-          {item.tier.replace("Tier ", "T")}
-        </div>
-      )}
+      <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
+        {item.tier.replace("Tier ", "T")}
+      </div>
       <div className={`flex items-center justify-center bg-[#0E1013] border-b border-[#2A2F37] overflow-hidden ${large ? "h-36" : "h-20"}`}>
-        {item.cat === "Firearms"
-          ? <WeaponArt item={item} className={`${large ? "w-32 h-32" : "w-[72px] h-[72px]"} ${spinning ? "opacity-70" : ""}`} />
-          : <FlaskConical size={large ? 44 : 26} className={`text-[#5b6472] ${spinning ? "animate-pulse" : ""}`} />}
+        <div className={spinning ? "opacity-70 animate-pulse" : ""}>
+          <ItemArt
+            item={item}
+            fallbackSize={large ? 44 : 26}
+            fallbackClass="text-[#5b6472]"
+            className={large ? "w-32 h-32" : "w-[72px] h-[72px]"}
+          />
+        </div>
       </div>
       <div className={large ? "p-3.5" : "p-2"}>
         <div className={`font-semibold text-[#EDEEF0] leading-tight truncate ${large ? "text-[16px]" : "text-[12px]"}`}>{item.name}</div>
@@ -452,9 +548,7 @@ function WinModal({ item, onClose }) {
           <div className="absolute top-3 left-3 text-[10px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 rounded bg-black/60 border border-[#5B8FC7]/40 text-[#5B8FC7]">
             Drop Result
           </div>
-          {item.cat === "Firearms"
-            ? <WeaponArt item={item} className="w-28 h-28 rounded-lg" />
-            : <FlaskConical size={44} className="text-[#5B8FC7]" />}
+          <ItemArt item={item} fallbackSize={44} fallbackClass="text-[#5B8FC7]" className="w-28 h-28 rounded-lg" />
         </div>
         <div className="p-5 text-center">
           <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-1.5">You won</div>
@@ -472,7 +566,6 @@ function WinModal({ item, onClose }) {
     </div>
   );
 }
-
 
 function SectionLabel({ eyebrow, title, desc, right }) {
   return (
@@ -504,21 +597,6 @@ function StatBar({ statKey, label, value }) {
   );
 }
 
-// weapon art lives in public/assets and is already tinted by rarity
-function WeaponArt({ item, className = "", imgClass = "" }) {
-  if (item.cat !== "Firearms" || !item.icon) {
-    return <FlaskConical size={28} className={`text-[#454b55] ${imgClass}`} />;
-  }
-  return (
-    <img
-      src={`${ASSET_BASE}assets/${item.icon}`}
-      alt={item.name}
-      loading="lazy"
-      className={`object-contain ${className}`}
-    />
-  );
-}
-
 function DetailModal({ item, onClose }) {
   if (!item) return null;
   const pillBase = "text-[11px] font-mono px-2.5 py-1 rounded-md border";
@@ -528,7 +606,7 @@ function DetailModal({ item, onClose }) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-lg border border-[#2A2F37] bg-[#0E1013] overflow-hidden"
+        className="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-lg border border-[#2A2F37] bg-[#0E1013]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-5">
@@ -538,11 +616,9 @@ function DetailModal({ item, onClose }) {
               <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>
                 {item.cat === "Firearms" ? "Weapon" : "Drug"}
               </span>
+              <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>{item.tier}</span>
               {item.cat === "Firearms" && (
-                <>
-                  <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>{item.tier}</span>
-                  <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>#{item.rank} of 64</span>
-                </>
+                <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>#{item.rank} of {COUNTS.Firearms}</span>
               )}
             </div>
             <button onClick={onClose} className="w-7 h-7 shrink-0 rounded-md border border-[#2A2F37] bg-[#14171C] flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
@@ -550,11 +626,12 @@ function DetailModal({ item, onClose }) {
             </button>
           </div>
 
-          {item.cat === "Firearms" && (
+          {item.icon && (
             <div className="flex justify-center mb-4">
-              <WeaponArt item={item} className="w-32 h-32 rounded-lg" />
+              <ItemArt item={item} className="w-32 h-32 rounded-lg" />
             </div>
           )}
+
           <h3 className="text-[22px] font-bold text-[#EDEEF0] mb-1" style={{ fontFamily: "'Oswald', sans-serif" }}>{item.name}</h3>
           {item.kind && <div className="text-[12px] font-mono text-[#5B8FC7] mb-3">{item.kind}</div>}
           <p className="text-[13px] text-[#8B92A0] leading-relaxed mb-5">{item.desc}</p>
@@ -562,7 +639,7 @@ function DetailModal({ item, onClose }) {
           {item.stats && (
             <>
               <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-3">
-                {item.cat === "Firearms" ? "Combat Stats" : "Item Stats"}
+                {item.cat === "Firearms" ? "Combat Stats" : "Effects"}
               </div>
               {item.cat === "Firearms" ? (
                 <div className="flex flex-col gap-3 mb-5">
@@ -577,7 +654,7 @@ function DetailModal({ item, onClose }) {
                       <div className="text-[10px] font-mono tracking-[0.15em] uppercase text-[#8B92A0] mb-1">
                         {STAT_LABELS[key] ?? key}
                       </div>
-                      <div className="text-[15px] font-semibold text-[#EDEEF0]">{value}</div>
+                      <div className="text-[13.5px] font-medium text-[#EDEEF0] leading-relaxed">{value}</div>
                     </div>
                   ))}
                 </div>
@@ -599,7 +676,6 @@ function DetailModal({ item, onClose }) {
 /* ------------------------------------------------------------------ */
 /*  MAIN                                                                */
 /* ------------------------------------------------------------------ */
-
 export default function IllegalHelperSite() {
   const [rollCat, setRollCat] = useState("Firearms");
   const [rollTier, setRollTier] = useState("Tier 1");
@@ -614,11 +690,11 @@ export default function IllegalHelperSite() {
   const [classFilter, setClassFilter] = useState("All");
   const [kindFilter, setKindFilter] = useState("All");
   const [query, setQuery] = useState("");
-
   const [activeItem, setActiveItem] = useState(null);
 
+  // both categories carry tiers now, so the tier tabs apply to drugs too
   const rollPool = useMemo(
-    () => CATALOG.filter((i) => i.cat === rollCat && (rollCat !== "Firearms" || i.tier === rollTier)),
+    () => CATALOG.filter((i) => i.cat === rollCat && i.tier === rollTier),
     [rollCat, rollTier]
   );
 
@@ -634,6 +710,9 @@ export default function IllegalHelperSite() {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rollCat, rollTier]);
+
+  // clean up the spin interval if the component unmounts mid-roll
+  useEffect(() => () => clearInterval(spinTimer.current), []);
 
   const filteredCatalog = useMemo(() => {
     return CATALOG.filter((i) => {
@@ -710,7 +789,7 @@ export default function IllegalHelperSite() {
           </h1>
           <p className="text-[#8B92A0] mt-5 max-w-lg text-[15px] leading-relaxed">
             Browse the supply drop, check what each skill route unlocks, and look up
-            all 64 weapons and every product the streets have to offer — before you commit to a run.
+            all {COUNTS.Firearms} weapons and {COUNTS.Drugs} products the streets have to offer — before you commit to a run.
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             <a href="#drop" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md bg-[#5B8FC7] text-[#0B0D10] text-[13px] font-semibold hover:bg-[#78A5D6] transition-colors">
@@ -743,16 +822,14 @@ export default function IllegalHelperSite() {
                     </button>
                   ))}
                 </div>
-                {rollCat === "Firearms" && (
-                  <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
-                    {TIERS.map((t) => (
-                      <button key={t} onClick={() => setRollTier(t)}
-                        className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollTier === t ? "bg-[#2A2F37] text-[#EDEEF0]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
+                  {TIERS.map((t) => (
+                    <button key={t} onClick={() => setRollTier(t)}
+                      className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollTier === t ? "bg-[#2A2F37] text-[#EDEEF0]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
+                      {t}
+                    </button>
+                  ))}
+                </div>
               </div>
             }
           />
@@ -854,7 +931,7 @@ export default function IllegalHelperSite() {
           <SectionLabel
             eyebrow="All Items + Descriptions"
             title="Weapon & Product Catalog"
-            desc="Every weapon in the pack, ranked and graded on its real in-game stats — damage, magazine, fire rate, DPS and time-to-kill pulled straight from the server files. Click a card for the full breakdown."
+            desc="Every weapon in the pack ranked on its real in-game stats — damage, magazine, fire rate, DPS and time-to-kill — plus every product and exactly what it does to you, pulled straight from the server files. Click a card for the full breakdown."
           />
 
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
@@ -915,20 +992,16 @@ export default function IllegalHelperSite() {
                 className="text-left rounded-md border border-[#2A2F37] bg-[#0E1013] overflow-hidden hover:border-[#454b55] transition-colors"
               >
                 <div className="h-28 flex items-center justify-center bg-[#14171C] border-b border-[#2A2F37] overflow-hidden">
-                  {item.cat === "Firearms"
-                    ? <WeaponArt item={item} className="w-24 h-24" />
-                    : <FlaskConical size={28} className="text-[#454b55]" />}
+                  <ItemArt item={item} fallbackSize={28} className="w-24 h-24" />
                 </div>
                 <div className="p-4">
                   <div className="flex items-start justify-between gap-2 mb-1.5">
                     <span className="text-[14px] font-semibold text-[#EDEEF0] leading-tight">{item.name}</span>
                     <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded border ${CLASS_COLOR[item.class]}`}>{item.class}</span>
                   </div>
-                  {item.kind && (
-                    <div className="text-[11px] font-mono text-[#5b6472] mb-2">
-                      {item.kind} · #{item.rank} overall
-                    </div>
-                  )}
+                  <div className="text-[11px] font-mono text-[#5b6472] mb-2">
+                    {item.kind ? `${item.kind} · #${item.rank} overall` : `${item.tier} · ${item.stats?.consume ?? "Product"}`}
+                  </div>
                   <p className="text-[12.5px] text-[#8B92A0] leading-relaxed mb-3">{item.desc}</p>
                   <div className="flex gap-1.5 flex-wrap">
                     {item.tags.map((t) => (
