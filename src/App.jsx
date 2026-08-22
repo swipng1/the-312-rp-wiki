@@ -388,17 +388,17 @@ const CATALOG = [
     tags: ["Run speed", "Armor", "No downside"],
     stats: { consume: "Smoke", duration: "15s", effect: "+5 armor, +15 run speed for 15s", downside: "None" } },
 
-  /* ----------- INHALANTS — Solar Gas, colour variants only ------------
+  /* --- Solar Gas inhalants — filed under Drugs, colour variants only ---
      All six cans are mechanically identical; the colour is cosmetic.    */
   ...[
-    ["blue",   "Solar Gas Blue",   "DRINK_SOLARGAS_BLUE.png"],
-    ["gold",   "Solar Gas Gold",   "DRINK_SOLARGAS_GOLD.png"],
-    ["red",    "Solar Gas Red",    "DRINK_SOLARGAS_RED.png"],
-    ["green",  "Solar Gas Green",  "DRINK_SOLARGAS_GREEN.png"],
-    ["yellow", "Solar Gas Yellow", "DRINK_SOLARGAS_YELLOW.png"],
-    ["white",  "Solar Gas White",  "DRINK_SOLARGAS_WHITE.png"],
+    ["blue",   "Solar Gas Blue",   "INHALANT_SOLARGAS_BLUE.png"],
+    ["gold",   "Solar Gas Gold",   "INHALANT_SOLARGAS_GOLD.png"],
+    ["red",    "Solar Gas Red",    "INHALANT_SOLARGAS_RED.png"],
+    ["green",  "Solar Gas Green",  "INHALANT_SOLARGAS_GREEN.png"],
+    ["yellow", "Solar Gas Yellow", "INHALANT_SOLARGAS_YELLOW.png"],
+    ["white",  "Solar Gas White",  "INHALANT_SOLARGAS_WHITE.png"],
   ].map(([key, name, icon], i) => ({
-    id: `solargas${key}`, name, cat: "Inhalants", class: "Common", icon, rank: 201 + i,
+    id: `solargas${key}`, name, cat: "Drugs", class: "Common", icon, rank: 112 + i,
     desc: "Huffed straight from the can — a 5% speed burst for two full minutes, paid for with 20% slower stamina regen across the same window. Colour is cosmetic; every can hits the same.",
     tags: ["Speed burst", "Long duration", "Stamina cost", "Cosmetic variant"],
     stats: { consume: "Inhale", duration: "120s", effect: "+5% speed burst for 120s", downside: "-20% stamina regen for 120s" },
@@ -464,8 +464,8 @@ const STAT_SCALE = {
 };
 
 // how many of each category exist, for the "#N of X" line
-const CATEGORIES = ["Firearms", "Drugs", "Inhalants"];
-const CAT_NOUN = { Firearms: "Weapon", Drugs: "Drug", Inhalants: "Inhalant" };
+const CATEGORIES = ["Firearms", "Drugs"];
+const CAT_NOUN = { Firearms: "Weapon", Drugs: "Drug" };
 const COUNTS = Object.fromEntries(
   CATEGORIES.map((c) => [c, CATALOG.filter((i) => i.cat === c).length])
 );
@@ -780,7 +780,7 @@ export default function IllegalHelperSite() {
           </h1>
           <p className="text-[#8B92A0] mt-5 max-w-lg text-[15px] leading-relaxed">
             Browse the supply drop, check what each skill route unlocks, and look up
-            all {COUNTS.Firearms} weapons, {COUNTS.Drugs} products and {COUNTS.Inhalants} cans the streets have to offer — before you commit to a run.
+            all {COUNTS.Firearms} weapons and {COUNTS.Drugs} products the streets have to offer — before you commit to a run.
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             <a href="#drop" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md bg-[#5B8FC7] text-[#0B0D10] text-[13px] font-semibold hover:bg-[#78A5D6] transition-colors">
