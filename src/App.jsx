@@ -45,22 +45,22 @@ const CATALOG = [
     desc: "Full-auto rifle putting out 237 DPS at 444 RPM. Holds damage better at distance than any pistol here and runs a 32-round magazine for extended fights.",
     tags: ["Full auto", "Long range", "Penetrating"],
     stats: { damage: 32, magazine: 32, fireRate: 444, dps: 237, ttk: 0.81 } },
-  { id: "rlarp4b", name: "Ridgeline ARP 4 Blue Binary", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "rlarp4b", name: "Ridgeline ARP 4 Blue Binary", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Rifle", icon: "WEAPON_RLARP4B.webp", rank: 8,
     desc: "Full-auto rifle putting out 237 DPS at 444 RPM. Holds damage better at distance than any pistol here and runs a 30-round magazine for extended fights.",
     tags: ["Full auto", "Long range", "Penetrating"],
     stats: { damage: 32, magazine: 30, fireRate: 444, dps: 237, ttk: 0.81 } },
-  { id: "rlarp4c", name: "Ridgeline ARP 4 Custom", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "rlarp4c", name: "Ridgeline ARP 4 Custom", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Rifle", icon: "WEAPON_RLARP4C.webp", rank: 9,
     desc: "Full-auto rifle putting out 237 DPS at 444 RPM. Holds damage better at distance than any pistol here and runs a 30-round magazine for extended fights.",
     tags: ["Full auto", "Long range", "Penetrating"],
     stats: { damage: 32, magazine: 30, fireRate: 444, dps: 237, ttk: 0.81 } },
-  { id: "rlarp75c", name: "Ridgeline ARP 7.5 Custom", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "rlarp75c", name: "Ridgeline ARP 7.5 Custom", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Rifle", icon: "WEAPON_RLARP75C.webp", rank: 10,
     desc: "Full-auto rifle putting out 237 DPS at 444 RPM. Holds damage better at distance than any pistol here and runs a 30-round magazine for extended fights.",
     tags: ["Full auto", "Long range", "Penetrating"],
     stats: { damage: 32, magazine: 30, fireRate: 444, dps: 237, ttk: 0.81 } },
-  { id: "rlarp762m", name: "Ridgeline ARP 762 Mini", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "rlarp762m", name: "Ridgeline ARP 762 Mini", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Rifle", icon: "WEAPON_RLARP762M.webp", rank: 11,
     desc: "Full-auto rifle putting out 237 DPS at 444 RPM. Holds damage better at distance than any pistol here and runs a 30-round magazine for extended fights.",
     tags: ["Full auto", "Long range", "Penetrating"],
@@ -70,17 +70,17 @@ const CATALOG = [
     desc: "Full-auto rifle putting out 190 DPS at 380 RPM. Holds damage better at distance than any pistol here and runs a 50-round magazine for extended fights.",
     tags: ["Full auto", "Large magazine", "Wide spread", "Long range"],
     stats: { damage: 30, magazine: 50, fireRate: 380, dps: 190, ttk: 0.95 } },
-  { id: "rlarpstc", name: "Ridgeline ARP Street Custom", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "rlarpstc", name: "Ridgeline ARP Street Custom", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Pistol", icon: "WEAPON_RLARPSTC.webp", rank: 13,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 50-round magazine is plenty to work with.",
     tags: ["Full auto", "High DPS", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "vs17cs", name: "Voss 17 Custom Switch", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "vs17cs", name: "Voss 17 Custom Switch", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Pistol", icon: "WEAPON_VS17CS.webp", rank: 14,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 50-round magazine is plenty to work with.",
     tags: ["Full auto", "High DPS", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "vs17swg", name: "Voss 17 Gold Switch", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "vs17swg", name: "Voss 17 Gold Switch", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Pistol", icon: "WEAPON_VS17SWG.webp", rank: 15,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 50-round magazine is plenty to work with.",
     tags: ["Full auto", "High DPS", "Large magazine"],
@@ -95,22 +95,22 @@ const CATALOG = [
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 50-round magazine is plenty to work with.",
     tags: ["Full auto", "High DPS", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "vs26swg", name: "Voss 26 Switch Green", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "vs26swg", name: "Voss 26 Switch Green", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Pistol", icon: "WEAPON_VS26SWG.webp", rank: 18,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 50-round magazine is plenty to work with.",
     tags: ["Full auto", "High DPS", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "vs26swp", name: "Voss 26 Switch Purple", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "vs26swp", name: "Voss 26 Switch Purple", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Pistol", icon: "WEAPON_VS26SWP.webp", rank: 19,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 50-round magazine is plenty to work with.",
     tags: ["Full auto", "High DPS", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "vs40cs", name: "Voss 40 Custom Switch", cat: "Firearms", tier: "Tier 1.5", class: "Epic",
+  { id: "vs40cs", name: "Voss 40 Custom Switch", cat: "Firearms", tier: "Tier 2", class: "Epic",
     kind: "Pistol", icon: "WEAPON_VS40CS.webp", rank: 20,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 50-round magazine is plenty to work with.",
     tags: ["Full auto", "High DPS", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "rlcbb", name: "Ridgeline Compact Black Binary", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "rlcbb", name: "Ridgeline Compact Black Binary", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Rifle", icon: "WEAPON_RLCBB.webp", rank: 21,
     desc: "Full-auto rifle putting out 190 DPS at 380 RPM. Holds damage better at distance than any pistol here and runs a 30-round magazine for extended fights.",
     tags: ["Full auto", "Wide spread", "Long range", "Penetrating"],
@@ -120,47 +120,47 @@ const CATALOG = [
     desc: "Full-auto rifle putting out 190 DPS at 380 RPM. Holds damage better at distance than any pistol here and runs a 30-round magazine for extended fights.",
     tags: ["Full auto", "Wide spread", "Long range", "Penetrating"],
     stats: { damage: 30, magazine: 30, fireRate: 380, dps: 190, ttk: 0.95 } },
-  { id: "vs22g4sb", name: "Voss 22 Gen4 Switch Blue", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "vs22g4sb", name: "Voss 22 Gen4 Switch Blue", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Pistol", icon: "WEAPON_VS22G4SB.webp", rank: 23,
     desc: "Switch-converted machine pistol running 600 RPM for 310 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 31, magazine: 18, fireRate: 600, dps: 310, ttk: 0.6 } },
-  { id: "vs22g4sg", name: "Voss 22 Gen4 Switch Green", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "vs22g4sg", name: "Voss 22 Gen4 Switch Green", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Pistol", icon: "WEAPON_VS22G4SG.webp", rank: 24,
     desc: "Switch-converted machine pistol running 600 RPM for 310 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 31, magazine: 18, fireRate: 600, dps: 310, ttk: 0.6 } },
-  { id: "vs22g4sp", name: "Voss 22 Gen4 Switch Purple", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "vs22g4sp", name: "Voss 22 Gen4 Switch Purple", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Pistol", icon: "WEAPON_VS22G4SP.webp", rank: 25,
     desc: "Switch-converted machine pistol running 600 RPM for 310 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 31, magazine: 18, fireRate: 600, dps: 310, ttk: 0.6 } },
-  { id: "vs22g4sr", name: "Voss 22 Gen4 Switch Red", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "vs22g4sr", name: "Voss 22 Gen4 Switch Red", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Pistol", icon: "WEAPON_VS22G4SR.webp", rank: 26,
     desc: "Switch-converted machine pistol running 600 RPM for 310 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 31, magazine: 18, fireRate: 600, dps: 310, ttk: 0.6 } },
-  { id: "vs23g5swg", name: "Voss 23 Gen5 Switch Gold", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "vs23g5swg", name: "Voss 23 Gen5 Switch Gold", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Pistol", icon: "WEAPON_VS23G5SWG.webp", rank: 27,
     desc: "Switch-converted machine pistol running 600 RPM for 310 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 31, magazine: 18, fireRate: 600, dps: 310, ttk: 0.6 } },
-  { id: "vs24g3sws", name: "Voss 24 Gen3 Switch Street", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "vs24g3sws", name: "Voss 24 Gen3 Switch Street", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Pistol", icon: "WEAPON_VS24G3SWS.webp", rank: 28,
     desc: "Switch-converted machine pistol running 600 RPM for 310 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 31, magazine: 18, fireRate: 600, dps: 310, ttk: 0.6 } },
-  { id: "vs31g5gs", name: "Voss 31 Gen5 Green Switch", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "vs31g5gs", name: "Voss 31 Gen5 Green Switch", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Pistol", icon: "WEAPON_VS31G5GS.webp", rank: 29,
     desc: "Switch-converted machine pistol running 600 RPM for 290 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 29, magazine: 18, fireRate: 600, dps: 290, ttk: 0.6 } },
-  { id: "vs45g5rs", name: "Voss 45 Gen5 Red Switch", cat: "Firearms", tier: "Tier 1.5", class: "Rare",
+  { id: "vs45g5rs", name: "Voss 45 Gen5 Red Switch", cat: "Firearms", tier: "Tier 2", class: "Rare",
     kind: "Pistol", icon: "WEAPON_VS45G5RS.webp", rank: 30,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 21-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 28, magazine: 21, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "plp8019r", name: "Palisade P80 19 Reaper", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "plp8019r", name: "Palisade P80 19 Reaper", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_PLP8019R.webp", rank: 31,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
@@ -170,57 +170,57 @@ const CATALOG = [
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 28, magazine: 18, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "vs19g5msw", name: "Voss 19 Gen5 MOS Switch", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "vs19g5msw", name: "Voss 19 Gen5 MOS Switch", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS19G5MSW.webp", rank: 33,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 28, magazine: 18, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "vs19g5rs", name: "Voss 19 Gen5 Red Switch", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "vs19g5rs", name: "Voss 19 Gen5 Red Switch", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS19G5RS.webp", rank: 34,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 28, magazine: 18, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "vs45sws", name: "Voss 45 Switch Silver", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "vs45sws", name: "Voss 45 Switch Silver", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS45SWS.webp", rank: 35,
     desc: "Switch-converted machine pistol running 600 RPM for 280 DPS. Melts anything up close; the 18-round magazine is gone in under two seconds, so trigger discipline matters.",
     tags: ["Full auto", "High DPS"],
     stats: { damage: 28, magazine: 18, fireRate: 600, dps: 280, ttk: 0.7 } },
-  { id: "rldefc", name: "Ridgeline Defender C", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "rldefc", name: "Ridgeline Defender C", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "SMG", icon: "WEAPON_RLDEFC.webp", rank: 36,
     desc: "Compact automatic at 600 RPM, but only 21 damage a round — 10 body shots to put someone down. Volume of fire over stopping power.",
     tags: ["Full auto", "Wide spread"],
     stats: { damage: 21, magazine: 30, fireRate: 600, dps: 210, ttk: 0.9 } },
-  { id: "rldef", name: "Ridgeline Defender SMG", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "rldef", name: "Ridgeline Defender SMG", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "SMG", icon: "WEAPON_RLDEF.webp", rank: 37,
     desc: "Compact automatic at 600 RPM, but only 21 damage a round — 10 body shots to put someone down. Volume of fire over stopping power.",
     tags: ["Full auto", "Wide spread"],
     stats: { damage: 21, magazine: 30, fireRate: 600, dps: 210, ttk: 0.9 } },
-  { id: "vs40mos", name: "Voss 40 MOS", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "vs40mos", name: "Voss 40 MOS", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS40MOS.webp", rank: 38,
     desc: "Heavy semi-auto sidearm hitting for 40 a shot, 5 rounds to a kill. Tight 1.4 spread rewards aim over spray, with a 50-round magazine.",
     tags: ["Semi auto", "Stopping power", "Large magazine", "High accuracy"],
     stats: { damage: 40, magazine: 50, fireRate: 143, dps: 95, ttk: 1.68 } },
-  { id: "vs21cfx", name: "Voss 21C Flex Custom", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "vs21cfx", name: "Voss 21C Flex Custom", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS21CFX.webp", rank: 39,
     desc: "Heavy semi-auto sidearm hitting for 44 a shot, 5 rounds to a kill. Tight 1.4 spread rewards aim over spray, with a 21-round magazine.",
     tags: ["Semi auto", "Stopping power", "High accuracy"],
     stats: { damage: 44, magazine: 21, fireRate: 143, dps: 105, ttk: 1.68 } },
-  { id: "tl57mos", name: "Talon 57 MOS", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "tl57mos", name: "Talon 57 MOS", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_TL57MOS.webp", rank: 40,
     desc: "Heavy semi-auto sidearm hitting for 40 a shot, 5 rounds to a kill. Tight 1.4 spread rewards aim over spray, with a 20-round magazine.",
     tags: ["Semi auto", "Stopping power", "High accuracy"],
     stats: { damage: 40, magazine: 20, fireRate: 143, dps: 95, ttk: 1.68 } },
-  { id: "pl57", name: "Palisade 57", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "pl57", name: "Palisade 57", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_PL57.webp", rank: 41,
     desc: "Heavy semi-auto sidearm hitting for 37 a shot, 6 rounds to a kill. Tight 1.5 spread rewards aim over spray, with a 24-round magazine.",
     tags: ["Semi auto", "Stopping power", "High accuracy"],
     stats: { damage: 37, magazine: 24, fireRate: 162, dps: 100, ttk: 1.85 } },
-  { id: "vs20cfx", name: "Voss 20C Flex Custom", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "vs20cfx", name: "Voss 20C Flex Custom", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS20CFX.webp", rank: 42,
     desc: "Heavy semi-auto sidearm hitting for 40 a shot, 5 rounds to a kill. Tight 1.4 spread rewards aim over spray, with a 18-round magazine.",
     tags: ["Semi auto", "Stopping power", "High accuracy"],
     stats: { damage: 40, magazine: 18, fireRate: 143, dps: 95, ttk: 1.68 } },
-  { id: "ry57b", name: "Ryker 57 Binary", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "ry57b", name: "Ryker 57 Binary", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_RY57B.webp", rank: 43,
     desc: "Heavy semi-auto sidearm hitting for 35 a shot, 6 rounds to a kill. Tight 1.5 spread rewards aim over spray, with a 20-round magazine.",
     tags: ["Semi auto", "Stopping power", "High accuracy"],
@@ -230,7 +230,7 @@ const CATALOG = [
     desc: "Standard semi-auto sidearm — 28 damage, 50-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine"],
     stats: { damage: 28, magazine: 50, fireRate: 162, dps: 76, ttk: 2.59 } },
-  { id: "vs45camo", name: "Voss 45 Camo", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "vs45camo", name: "Voss 45 Camo", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS45CAMO.webp", rank: 45,
     desc: "Standard semi-auto sidearm — 28 damage, 50-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine"],
@@ -245,7 +245,7 @@ const CATALOG = [
     desc: "Standard semi-auto sidearm — 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 27, magazine: 50, fireRate: 162, dps: 73, ttk: 2.59 } },
-  { id: "vs19xc", name: "Voss 19X Custom", cat: "Firearms", tier: "Tier 1", class: "Uncommon",
+  { id: "vs19xc", name: "Voss 19X Custom", cat: "Firearms", tier: "Tier 1.5", class: "Uncommon",
     kind: "Pistol", icon: "WEAPON_VS19XC.webp", rank: 48,
     desc: "Standard semi-auto sidearm — 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
@@ -255,7 +255,7 @@ const CATALOG = [
     desc: "Standard semi-auto sidearm — 27 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 27, magazine: 50, fireRate: 162, dps: 73, ttk: 2.59 } },
-  { id: "sb40t", name: "Sable 40 Tan", cat: "Firearms", tier: "Tier 1", class: "Common",
+  { id: "sb40t", name: "Sable 40 Tan", cat: "Firearms", tier: "Tier 1.5", class: "Common",
     kind: "Pistol", icon: "WEAPON_SB40T.webp", rank: 50,
     desc: "Heavy semi-auto sidearm hitting for 34 a shot, 6 rounds to a kill. Tight 1.5 spread rewards aim over spray, with a 14-round magazine.",
     tags: ["Semi auto", "Stopping power", "High accuracy"],
@@ -270,7 +270,7 @@ const CATALOG = [
     desc: "Standard semi-auto sidearm — 26 damage, 50-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "Large magazine", "High accuracy"],
     stats: { damage: 26, magazine: 50, fireRate: 162, dps: 70, ttk: 2.59 } },
-  { id: "pl20t", name: "Palisade 20 Tactical", cat: "Firearms", tier: "Tier 1", class: "Common",
+  { id: "pl20t", name: "Palisade 20 Tactical", cat: "Firearms", tier: "Tier 1.5", class: "Common",
     kind: "Pistol", icon: "WEAPON_PL20T.webp", rank: 53,
     desc: "Standard semi-auto sidearm — 32 damage, 15-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
@@ -280,7 +280,7 @@ const CATALOG = [
     desc: "Standard semi-auto sidearm — 27 damage, 19-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 27, magazine: 19, fireRate: 162, dps: 73, ttk: 2.59 } },
-  { id: "vs43xc", name: "Voss 43X Custom", cat: "Firearms", tier: "Tier 1", class: "Common",
+  { id: "vs43xc", name: "Voss 43X Custom", cat: "Firearms", tier: "Tier 1.5", class: "Common",
     kind: "Pistol", icon: "WEAPON_VS43XC.webp", rank: 55,
     desc: "Standard semi-auto sidearm — 29 damage, 10-round magazine and a tight 1.75 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto"],
@@ -300,7 +300,7 @@ const CATALOG = [
     desc: "Standard semi-auto sidearm — 27 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 27, magazine: 17, fireRate: 162, dps: 73, ttk: 2.59 } },
-  { id: "vs45am", name: "Voss 45 American", cat: "Firearms", tier: "Tier 1", class: "Common",
+  { id: "vs45am", name: "Voss 45 American", cat: "Firearms", tier: "Tier 1.5", class: "Common",
     kind: "Pistol", icon: "WEAPON_VS45AM.webp", rank: 59,
     desc: "Standard semi-auto sidearm — 27 damage, 17-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
@@ -387,6 +387,22 @@ const CATALOG = [
     desc: "5 armor and a 15% run speed bump for fifteen seconds. Small numbers, but it's the only clean speed item this far down the list.",
     tags: ["Run speed", "Armor", "No downside"],
     stats: { consume: "Smoke", duration: "15s", effect: "+5 armor, +15 run speed for 15s", downside: "None" } },
+
+  /* ----------- INHALANTS — Solar Gas, colour variants only ------------
+     All six cans are mechanically identical; the colour is cosmetic.    */
+  ...[
+    ["blue",   "Solar Gas Blue",   "DRINK_SOLARGAS_BLUE.png"],
+    ["gold",   "Solar Gas Gold",   "DRINK_SOLARGAS_GOLD.png"],
+    ["red",    "Solar Gas Red",    "DRINK_SOLARGAS_RED.png"],
+    ["green",  "Solar Gas Green",  "DRINK_SOLARGAS_GREEN.png"],
+    ["yellow", "Solar Gas Yellow", "DRINK_SOLARGAS_YELLOW.png"],
+    ["white",  "Solar Gas White",  "DRINK_SOLARGAS_WHITE.png"],
+  ].map(([key, name, icon], i) => ({
+    id: `solargas${key}`, name, cat: "Inhalants", class: "Common", icon, rank: 201 + i,
+    desc: "Huffed straight from the can — a 5% speed burst for two full minutes, paid for with 20% slower stamina regen across the same window. Colour is cosmetic; every can hits the same.",
+    tags: ["Speed burst", "Long duration", "Stamina cost", "Cosmetic variant"],
+    stats: { consume: "Inhale", duration: "120s", effect: "+5% speed burst for 120s", downside: "-20% stamina regen for 120s" },
+  })),
 ];
 
 const SKILLS = {
@@ -448,10 +464,11 @@ const STAT_SCALE = {
 };
 
 // how many of each category exist, for the "#N of X" line
-const COUNTS = {
-  Firearms: CATALOG.filter((i) => i.cat === "Firearms").length,
-  Drugs: CATALOG.filter((i) => i.cat === "Drugs").length,
-};
+const CATEGORIES = ["Firearms", "Drugs", "Inhalants"];
+const CAT_NOUN = { Firearms: "Weapon", Drugs: "Drug", Inhalants: "Inhalant" };
+const COUNTS = Object.fromEntries(
+  CATEGORIES.map((c) => [c, CATALOG.filter((i) => i.cat === c).length])
+);
 
 /* ------------------------------------------------------------------ */
 /*  SMALL PIECES                                                       */
@@ -586,7 +603,7 @@ function DetailModal({ item, onClose }) {
             <div className="flex gap-1.5 flex-wrap">
               <span className={`${pillBase} ${CLASS_COLOR[item.class]}`}>{item.class}</span>
               <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>
-                {item.cat === "Firearms" ? "Weapon" : "Drug"}
+                {CAT_NOUN[item.cat] ?? item.cat}
               </span>
               {item.tier && (
                 <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>{item.tier}</span>
@@ -763,7 +780,7 @@ export default function IllegalHelperSite() {
           </h1>
           <p className="text-[#8B92A0] mt-5 max-w-lg text-[15px] leading-relaxed">
             Browse the supply drop, check what each skill route unlocks, and look up
-            all {COUNTS.Firearms} weapons and {COUNTS.Drugs} products the streets have to offer — before you commit to a run.
+            all {COUNTS.Firearms} weapons, {COUNTS.Drugs} products and {COUNTS.Inhalants} cans the streets have to offer — before you commit to a run.
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             <a href="#drop" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md bg-[#5B8FC7] text-[#0B0D10] text-[13px] font-semibold hover:bg-[#78A5D6] transition-colors">
@@ -789,7 +806,7 @@ export default function IllegalHelperSite() {
             right={
               <div className="flex flex-col items-end gap-2">
                 <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
-                  {["Firearms", "Drugs"].map((c) => (
+                  {CATEGORIES.map((c) => (
                     <button key={c} onClick={() => setRollCat(c)}
                       className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollCat === c ? "bg-[#5B8FC7] text-[#0B0D10]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
                       {c}
@@ -913,7 +930,7 @@ export default function IllegalHelperSite() {
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div className="flex flex-wrap gap-2">
               <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
-                {["All", "Firearms", "Drugs"].map((c) => (
+                {["All", ...CATEGORIES].map((c) => (
                   <button key={c} onClick={() => setCatFilter(c)}
                     className={`px-3.5 py-1.5 rounded text-[12.5px] font-medium transition-colors ${catFilter === c ? "bg-[#5B8FC7] text-[#0B0D10]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
                     {c}
