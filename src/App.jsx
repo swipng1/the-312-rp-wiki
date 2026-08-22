@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, X, Layers } from "lucide-react";
+import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, X } from "lucide-react";
+
 /* ------------------------------------------------------------------ */
 /*  DATA — swap this out for your real drop tables / skill trees      */
 /*  weapon stats are real in-game values; drug stats come from         */
@@ -7,6 +8,7 @@ import { Shield, Crosshair, FlaskConical, Search, Dice5, ChevronRight, X, Layers
 /* ------------------------------------------------------------------ */
 const TIERS = ["Tier 1", "Tier 1.5", "Tier 2"];
 const KINDS = ["Pistol", "Rifle", "SMG"];
+
 const CATALOG = [
   { id: "rlmicroc", name: "Ridgeline Micro Custom", cat: "Firearms", tier: "Tier 2", class: "Mythic",
     kind: "Rifle", icon: "WEAPON_RLMICROC.webp", rank: 1,
@@ -328,6 +330,7 @@ const CATALOG = [
     desc: "Standard semi-auto sidearm — 26 damage, 12-round magazine and a tight 1.5 spread. Dependable sidearm, outgunned by anything automatic up close.",
     tags: ["Semi auto", "High accuracy"],
     stats: { damage: 26, magazine: 12, fireRate: 162, dps: 70, ttk: 2.59 } },
+
   /* ---------------- DRUGS — pulled from drugs.json ---------------- */
   { id: "xanax3mg", name: "Xanax 3mg", cat: "Drugs", class: "Legendary",
     icon: "DRUG_XANAX3MG.png", rank: 101,
@@ -384,6 +387,7 @@ const CATALOG = [
     desc: "5 armor and a 15% run speed bump for fifteen seconds. Small numbers, but it's the only clean speed item this far down the list.",
     tags: ["Run speed", "Armor", "No downside"],
     stats: { consume: "Smoke", duration: "15s", effect: "+5 armor, +15 run speed for 15s", downside: "None" } },
+
   /* --- Solar Gas inhalants — filed under Drugs, colour variants only ---
      All six cans are mechanically identical; the colour is cosmetic.    */
   ...[
@@ -400,32 +404,91 @@ const CATALOG = [
     stats: { consume: "Inhale", duration: "120s", effect: "+5% speed burst for 120s", downside: "-20% stamina regen for 120s" },
   })),
 ];
+
+/* ------------------------------------------------------------------ */
+/*  SKILL TREES — mirrors Config.RoleSkills on the server.            */
+/*  `max` is the PRE-SELECT limit at registration, not a lifetime cap. */
+/*  Server re-validates level and SP on every purchase.                */
+/* ------------------------------------------------------------------ */
 const SKILLS = {
   Faction: {
-    note: "Real skill list. These unlocks come directly from the faction progression track.",
+    key: "faction",
+    max: 3,
+    note: "Faction progression track. You pre-select up to 3 of these at registration — the rest are bought later with skill points, and the server re-checks your level and SP on every purchase.",
     items: [
-      { unlock: 3, name: "Nametags", desc: "Enables viewing nametags above players. Must be in a faction for /mark.", tags: ["Faction", "Vision utility"] },
-      { unlock: 5, name: "Improvement", desc: "Allows faction members to add an additional slot to their vehicles.", tags: ["Faction", "Vehicle upgrade"] },
-      { unlock: 7, name: "Tazer Resistance", desc: "No effect from tasers, once per 30 seconds.", tags: ["Faction", "Combat defense"] },
-      { unlock: 7, name: "Take Cover", desc: "Grants access to Q-peek while in cover.", tags: ["Faction", "Peek access"] },
-      { unlock: 9, name: "Masked Identity", desc: "Prevents your name from being logged by nearby cameras while masked.", tags: ["Faction", "Stealth"] },
+      { id: "nametags",      name: "Nametags",             level: 3,  sp: 1, tag: "Vision utility",       desc: "Enables viewing nametags above players. Must be in a faction for /mark." },
+      { id: "improvement",   name: "Improvement",          level: 5,  sp: 2, tag: "Vehicle upgrade",      desc: "Allows Faction Members to add an additional slot to their vehicles." },
+      { id: "tazerres",      name: "Tazer Resistance",     level: 7,  sp: 3, tag: "Combat defense",       desc: "No effect by tasers once per 30 seconds." },
+      { id: "takecover",     name: "Take Cover",           level: 7,  sp: 1, tag: "Peek access",          desc: "Allows the user to have access to Q Peak." },
+      { id: "masked",        name: "Masked Identity",      level: 8,  sp: 1, tag: "Identity concealment", desc: "When a user has a mask on, it toggles their tognames from the character name to 'MASKED'." },
+      { id: "swifthands",    name: "Swift Hands",          level: 10, sp: 2, tag: "Animation access",     desc: "Gives access to Stomach Pull animation." },
+      { id: "spotem",        name: "Spot 'Em Got 'Em",     level: 10, sp: 2, tag: "Mark radius",          desc: "Increases the radius of tognames for marked players." },
+      { id: "adrenaline",    name: "Adrenaline Rush",      level: 12, sp: 3, tag: "Movement boost",       desc: "When you drop below 40 HP when being hit by a weapon, you'll get a run speed boost." },
+      { id: "fortitude",     name: "Fortitude",            level: 12, sp: 3, tag: "Combat defense",       desc: "Allows the user to not have the limping animation while getting shot." },
+      { id: "toughskin",     name: "Tough Skin",           level: 12, sp: 3, tag: "Combat defense",       desc: "Take 10% less damage from weapons." },
+      { id: "hotdriver",     name: "Hot Driver",           level: 13, sp: 3, tag: "Chase skill",          desc: "Allows Users to Improve The Cars Vehicle Meta during a Chase." },
+      { id: "rapiddeploy",   name: "Rapid Deployment",     level: 15, sp: 3, tag: "Entry speed",          desc: "Allows the user to maneuver in and out of vehicles slightly faster." },
+      { id: "brawler",       name: "Brawler",              level: 15, sp: 3, tag: "Melee bonus",          desc: "Deal 25% more melee damage." },
+      { id: "fpshooter",     name: "First Person Shooter", level: 18, sp: 4, tag: "Aim control",          desc: "Allows No Screenshake or recoil in first person." },
+      { id: "headshotkings", name: "Headshot Kings",       level: 20, sp: 5, tag: "Firearm bonus",        desc: "Deal additional 3 damage to the head with a firearm." },
+      { id: "sharpshooter",  name: "Sharpshooter",         level: 20, sp: 5, tag: "Aim control",          desc: "Takes out 2 of the worst screenshakes while shooting." },
     ],
   },
+
+  Illegal: {
+    key: "illegal",
+    max: 7,
+    note: "Illegal track. You pre-select up to 7 at registration — the widest opening hand of the three, and the only track with Street Dealer for selling product to NPCs.",
+    items: [
+      { id: "nametags",      name: "Nametags",             level: 3,  sp: 1, tag: "Vision utility",       desc: "Enables viewing nametags above players. Must be in a faction for /mark." },
+      { id: "streetdealer",  name: "Street Dealer",        level: 3,  sp: 1, tag: "Drug sales",           desc: "Allows drugs to be sold to NPC's for cash." },
+      { id: "takecover",     name: "Take Cover",           level: 7,  sp: 1, tag: "Peek access",          desc: "Allows the user to have access to Q Peak." },
+      { id: "masked",        name: "Masked Identity",      level: 8,  sp: 1, tag: "Identity concealment", desc: "When a user has a mask on, it toggles their tognames from the character name to 'MASKED'." },
+      { id: "spotem",        name: "Spot 'Em Got 'Em",     level: 10, sp: 2, tag: "Mark radius",          desc: "Increases the radius of tognames for marked players." },
+      { id: "reducedfall",   name: "Reduced Fall Damage",  level: 10, sp: 2, tag: "Safety",               desc: "Cannot slip or fall over from jumping too often." },
+      { id: "calmbreathing", name: "Calm Breathing",       level: 10, sp: 2, tag: "Stamina",              desc: "Restores stamina faster." },
+      { id: "adrenaline",    name: "Adrenaline Rush",      level: 12, sp: 3, tag: "Movement boost",       desc: "When you drop below 40 HP when being hit by a weapon, you'll get a run speed boost." },
+      { id: "fortitude",     name: "Fortitude",            level: 12, sp: 3, tag: "Combat defense",       desc: "Allows the user to not have the limping animation while getting shot." },
+      { id: "fleetfooted",   name: "Fleet Footed",         level: 12, sp: 3, tag: "Movement boost",       desc: "Move 5% faster on foot." },
+      { id: "hotdriver",     name: "Hot Driver",           level: 13, sp: 3, tag: "Chase skill",          desc: "Allows users to improve the cars performance during a chase." },
+      { id: "rapiddeploy",   name: "Rapid Deployment",     level: 15, sp: 3, tag: "Entry speed",          desc: "Allows the user to maneuver in and out of vehicles slightly faster." },
+      { id: "killswitch",    name: "Killswitch",           level: 17, sp: 4, tag: "Vehicle control",      desc: "Sit in a vehicle you own and use /killswitch to cut its engine as an anti-theft lock — it stays dead until you use /killswitch2 from anywhere." },
+      { id: "fpshooter",     name: "First Person Shooter", level: 18, sp: 4, tag: "Aim control",          desc: "Allows No Screenshake or recoil in first person." },
+      { id: "headshotkings", name: "Headshot Kings",       level: 20, sp: 5, tag: "Firearm bonus",        desc: "Deal additional 3 damage to the head with a firearm." },
+      { id: "sharpshooter",  name: "Sharpshooter",         level: 20, sp: 5, tag: "Aim control",          desc: "Takes out 2 of the worst screenshakes while shooting." },
+    ],
+  },
+
   Civilian: {
-    note: "Placeholder starter track — shown so players can see the shape of the path before it's built out.",
+    key: "civilian",
+    max: 10,
+    note: "Civilian track. You pre-select up to 10 at registration and it leans into economy and survival — Fuel Saver, Healthy Diet, XP Boost — rather than gunplay.",
     items: [
-      { unlock: 2, name: "Steady Hands", desc: "Reduces sway while performing timed civilian jobs.", tags: ["Civilian", "Utility"] },
-      { unlock: 4, name: "Quick Talk", desc: "Shortens dialogue wait time when interacting with job NPCs.", tags: ["Civilian", "Quality of life"] },
-    ],
-  },
-  "Illegal Civilian": {
-    note: "Placeholder starter track — shown so players can see the shape of the path before it's built out.",
-    items: [
-      { unlock: 3, name: "Low Profile", desc: "Slightly reduces wanted gain from minor infractions.", tags: ["Illegal", "Heat control"] },
-      { unlock: 6, name: "Fence Contact", desc: "Unlocks a discreet sell option for hot goods.", tags: ["Illegal", "Economy"] },
+      { id: "nametags",      name: "Nametags",             level: 3,  sp: 1, tag: "Vision utility",       desc: "Enables viewing nametags above players. Must be in a faction for /mark." },
+      { id: "merchselling",  name: "Merch Selling",        level: 3,  sp: 1, tag: "Merch sales",          desc: "Allows merch to be sold to NPC's for cash." },
+      { id: "healthydiet",   name: "Healthy Diet",         level: 5,  sp: 2, tag: "Survival",             desc: "Decreases hunger & thirst decay rate." },
+      { id: "takecover",     name: "Take Cover",           level: 7,  sp: 1, tag: "Peek access",          desc: "Allows the user to have access to Q Peak." },
+      { id: "fuelsaver",     name: "Fuel Saver",           level: 8,  sp: 2, tag: "Vehicle economy",      desc: "50% Reduced Fuel Consumption." },
+      { id: "calmbreathing", name: "Calm Breathing",       level: 10, sp: 2, tag: "Stamina",              desc: "Restores stamina faster." },
+      { id: "reducedfall",   name: "Reduced Fall Damage",  level: 10, sp: 2, tag: "Safety",               desc: "Cannot slip or fall over from jumping too often." },
+      { id: "strongswimmer", name: "Strong Swimmer",       level: 10, sp: 2, tag: "Survival",             desc: "Swim 15% faster." },
+      { id: "toughskin",     name: "Tough Skin",           level: 12, sp: 3, tag: "Combat defense",       desc: "Take 10% less damage from weapons." },
+      { id: "hotdriver",     name: "Hot Driver",           level: 13, sp: 3, tag: "Chase skill",          desc: "Allows users to improve the cars performance during a chase." },
+      { id: "xpboost",       name: "XP Boost",             level: 15, sp: 3, tag: "XP",                   desc: "Raises your hourly RP XP cap, so you earn for longer each hour." },
+      { id: "quickrecovery", name: "Quick Recovery",       level: 15, sp: 3, tag: "Survival",             desc: "Slowly regenerate health when out of combat." },
+      { id: "killswitch",    name: "Killswitch",           level: 17, sp: 4, tag: "Vehicle control",      desc: "Sit in a vehicle you own and use /killswitch to cut its engine as an anti-theft lock — it stays dead until you use /killswitch2 from anywhere." },
+      { id: "reputation",    name: "Reputation",           level: 30, sp: 6, tag: "Verification",         desc: "Verified on Birdy with the current account accessed." },
     ],
   },
 };
+
+// how many tracks each skill id appears on — drives the "Shared" chip so a
+// player can see at a glance which picks aren't exclusive to one path.
+const SKILL_TRACK_COUNT = Object.values(SKILLS).reduce((acc, track) => {
+  track.items.forEach((s) => { acc[s.id] = (acc[s.id] ?? 0) + 1; });
+  return acc;
+}, {});
+
 const CLASS_COLOR = {
   Common: "text-slate-300 border-slate-500/60",
   Uncommon: "text-emerald-300 border-emerald-500/50",
@@ -434,73 +497,19 @@ const CLASS_COLOR = {
   Legendary: "text-orange-300 border-orange-500/50",
   Mythic: "text-yellow-200 border-yellow-400/60",
 };
+
 // rarity order, best first — drives sorting and the legend
 const CLASS_ORDER = ["Mythic", "Legendary", "Epic", "Rare", "Uncommon", "Common"];
-/* ------------------------------------------------------------------ */
-/*  DROP ODDS                                                          */
-/*                                                                     */
-/*  Rarity is drawn FIRST, then an item is picked uniformly from        */
-/*  inside that rarity. This is deliberate: it means adding ten more    */
-/*  Epic pistols to the catalog does not quietly make Epic ten times    */
-/*  more likely. The published percentages stay true no matter how      */
-/*  lopsided the item list gets.                                        */
-/*                                                                     */
-/*  These are relative weights, not percentages — the real percentage   */
-/*  depends on which rarities exist in the pool you're rolling, and is  */
-/*  renormalised per pool by poolOdds() below. Tune freely; the UI      */
-/*  recomputes and re-displays everything from this one object.         */
-/* ------------------------------------------------------------------ */
-const RARITY_WEIGHTS = {
-  Mythic: 1,
-  Legendary: 5,
-  Epic: 15,
-  Rare: 30,
-  Uncommon: 70,
-  Common: 120,
-};
-// Groups a pool by rarity and renormalises the weights over only the
-// rarities actually present, so the percentages always total 100 for the
-// tier on screen. Returns best-rarity-first, matching CLASS_ORDER.
-function poolOdds(pool) {
-  const byClass = new Map();
-  for (const item of pool) {
-    if (!byClass.has(item.class)) byClass.set(item.class, []);
-    byClass.get(item.class).push(item);
-  }
-  const present = CLASS_ORDER.filter((c) => byClass.has(c));
-  const total = present.reduce((sum, c) => sum + (RARITY_WEIGHTS[c] ?? 0), 0);
-  return present.map((c) => ({
-    cls: c,
-    items: byClass.get(c),
-    weight: RARITY_WEIGHTS[c] ?? 0,
-    pct: total > 0 ? ((RARITY_WEIGHTS[c] ?? 0) / total) * 100 : 0,
-  }));
-}
-// Weighted rarity roll, then a flat pick inside the winning rarity.
-function pickWeighted(odds) {
-  if (!odds || odds.length === 0) return null;
-  const total = odds.reduce((sum, o) => sum + o.weight, 0);
-  let roll = Math.random() * total;
-  for (const o of odds) {
-    roll -= o.weight;
-    if (roll <= 0) return o.items[Math.floor(Math.random() * o.items.length)];
-  }
-  // float rounding can leave `roll` a hair above 0 on the last bucket
-  const last = odds[odds.length - 1];
-  return last.items[Math.floor(Math.random() * last.items.length)];
-}
-// sub-1% odds need the extra decimal or a Mythic reads as "0%"
-function fmtPct(pct) {
-  if (pct === 0) return "0";
-  return pct < 1 ? pct.toFixed(2) : pct.toFixed(1);
-}
+
 // Vite injects the real base path (e.g. "/the-312-rp-wiki/") here at build time,
 // so asset URLs work whether the site is hosted at a domain root or a subfolder.
 const ASSET_BASE = import.meta.env.BASE_URL;
+
 const STAT_LABELS = {
   damage: "Damage", magazine: "Magazine", fireRate: "Fire Rate", dps: "DPS", ttk: "Time to Kill",
   consume: "Taken As", duration: "Duration", effect: "Effect", downside: "Downside", weight: "Weight",
 };
+
 // real-world maximums across the pack, so each bar is scaled against the best weapon
 // rather than a made-up 0-100 scale. `invert` = lower is better.
 const STAT_SCALE = {
@@ -510,17 +519,18 @@ const STAT_SCALE = {
   dps:      { max: 360, unit: "" },
   ttk:      { max: 2.6, unit: "s", invert: true },
 };
+
 // how many of each category exist, for the "#N of X" line
 const CATEGORIES = ["Firearms", "Drugs"];
 const CAT_NOUN = { Firearms: "Weapon", Drugs: "Drug" };
 const COUNTS = Object.fromEntries(
   CATEGORIES.map((c) => [c, CATALOG.filter((i) => i.cat === c).length])
 );
-const SLOT_COUNT = 8;
-const MULTI_PULL = 10;
+
 /* ------------------------------------------------------------------ */
 /*  SMALL PIECES                                                       */
 /* ------------------------------------------------------------------ */
+
 // artwork lives in public/assets — weapons are .webp, drugs are .png.
 // Anything without an `icon` falls back to the generic flask.
 function ItemArt({ item, className = "", fallbackSize = 28, fallbackClass = "text-[#454b55]" }) {
@@ -536,28 +546,16 @@ function ItemArt({ item, className = "", fallbackSize = 28, fallbackClass = "tex
     />
   );
 }
-function EvidenceTag({ item, spinning, onClick, large, landed }) {
-  // border colour is picked in one place rather than layered — two competing
-  // border-* utilities in the same class string resolve by stylesheet order,
-  // not by the order you wrote them, so the highlight would be a coin flip.
-  const borderClass = spinning
-    ? "border-[#2A2F37]"
-    : landed
-      ? "border-[#5B8FC7] shadow-[0_0_24px_-6px_rgba(91,143,199,0.7)]"
-      : "border-[#2A2F37] hover:border-[#454b55]";
+
+function EvidenceTag({ item, spinning, onClick, large }) {
   return (
     <button
       onClick={() => onClick(item)}
-      className={`relative flex h-full w-full flex-col items-stretch rounded-md border ${borderClass} bg-[#14171C] overflow-hidden transition-all duration-150 text-left ${spinning ? "scale-[0.97]" : ""}`}
+      className={`relative flex h-full w-full flex-col items-stretch rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
     >
       {item.tier && (
         <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
           {item.tier.replace("Tier ", "T")}
-        </div>
-      )}
-      {landed && !spinning && (
-        <div className="absolute z-10 top-1.5 left-1.5 text-[9px] font-mono tracking-wider px-1.5 py-0.5 rounded-sm bg-[#5B8FC7] text-[#0B0D10]">
-          HIT
         </div>
       )}
       <div className={`flex items-center justify-center bg-[#0E1013] border-b border-[#2A2F37] overflow-hidden ${large ? "h-36" : "h-20"}`}>
@@ -577,120 +575,44 @@ function EvidenceTag({ item, spinning, onClick, large, landed }) {
     </button>
   );
 }
-// One chip per rarity in the current pool: true percentage plus how many
-// items sit behind it. This is the whole point of the rework — the number
-// on screen is the number the roll actually uses.
-function OddsRow({ odds, compact }) {
-  if (!odds.length) return null;
-  return (
-    <div className={`flex flex-wrap gap-1.5 ${compact ? "" : "mb-4"}`}>
-      {odds.map((o) => (
-        <span
-          key={o.cls}
-          className={`text-[11px] font-mono px-2.5 py-1 rounded border bg-white/[0.03] ${CLASS_COLOR[o.cls]}`}
-        >
-          {o.cls}
-          <span className="ml-1.5 font-semibold">{fmtPct(o.pct)}%</span>
-          <span className="ml-1.5 opacity-45">{o.items.length} item{o.items.length === 1 ? "" : "s"}</span>
-        </span>
-      ))}
-    </div>
-  );
-}
-function ResultModal({ items, onClose }) {
-  if (!items || items.length === 0) return null;
-  const multi = items.length > 1;
-  // best-first reads better than pull order — you want to see the ceiling
-  const sorted = [...items].sort(
-    (a, b) => CLASS_ORDER.indexOf(a.class) - CLASS_ORDER.indexOf(b.class)
-  );
-  const best = sorted[0];
-  const tally = CLASS_ORDER
-    .map((c) => [c, items.filter((i) => i.class === c).length])
-    .filter(([, n]) => n > 0);
+
+function WinModal({ item, onClose }) {
+  if (!item) return null;
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm px-4"
       onClick={onClose}
     >
       <div
-        className={`w-full ${multi ? "max-w-2xl" : "max-w-sm"} max-h-[90vh] overflow-y-auto rounded-lg border border-[#5B8FC7]/50 bg-[#0E1013] shadow-[0_0_40px_-8px_rgba(91,143,199,0.5)]`}
+        className="w-full max-w-sm rounded-lg border border-[#5B8FC7]/50 bg-[#0E1013] overflow-hidden shadow-[0_0_40px_-8px_rgba(91,143,199,0.5)]"
         onClick={(e) => e.stopPropagation()}
       >
-        {!multi ? (
-          <>
-            <div className="relative h-40 flex items-center justify-center bg-[#14171C] border-b border-[#5B8FC7]/30">
-              <button onClick={onClose} className="absolute top-3 right-3 w-7 h-7 rounded-md border border-[#2A2F37] bg-[#0B0D10]/70 flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
-                <X size={14} />
-              </button>
-              <div className="absolute top-3 left-3 text-[10px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 rounded bg-black/60 border border-[#5B8FC7]/40 text-[#5B8FC7]">
-                Drop Result
-              </div>
-              <ItemArt item={best} fallbackSize={44} fallbackClass="text-[#5B8FC7]" className="w-28 h-28 rounded-lg" />
-            </div>
-            <div className="p-5 text-center">
-              <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-1.5">You won</div>
-              <h3 className="text-[22px] font-bold text-[#EDEEF0] mb-1" style={{ fontFamily: "'Oswald', sans-serif" }}>{best.name}</h3>
-              <span className={`inline-block text-[11px] font-mono px-2 py-0.5 rounded border ${CLASS_COLOR[best.class]} mb-4`}>{best.class}</span>
-              <p className="text-[13px] text-[#8B92A0] leading-relaxed mb-5">{best.desc}</p>
-              <button
-                onClick={onClose}
-                className="w-full py-2.5 rounded-md bg-[#5B8FC7] text-[#0B0D10] font-semibold text-[13px] hover:bg-[#78A5D6] transition-colors"
-              >
-                Nice
-              </button>
-            </div>
-          </>
-        ) : (
-          <div className="p-5">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-1">
-                  {items.length} pulls
-                </div>
-                <h3 className="text-[22px] font-bold text-[#EDEEF0]" style={{ fontFamily: "'Oswald', sans-serif" }}>
-                  Best: {best.name}
-                </h3>
-              </div>
-              <button onClick={onClose} className="w-7 h-7 shrink-0 rounded-md border border-[#2A2F37] bg-[#14171C] flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
-                <X size={14} />
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {tally.map(([cls, n]) => (
-                <span key={cls} className={`text-[11px] font-mono px-2 py-0.5 rounded border bg-white/[0.03] ${CLASS_COLOR[cls]}`}>
-                  {cls} <span className="font-semibold">×{n}</span>
-                </span>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-5">
-              {sorted.map((item, i) => (
-                <div
-                  key={`${item.id}-${i}`}
-                  className={`rounded-md border overflow-hidden bg-[#14171C] ${i === 0 ? "border-[#5B8FC7]" : "border-[#2A2F37]"}`}
-                >
-                  <div className="h-16 flex items-center justify-center bg-[#0E1013] border-b border-[#2A2F37]">
-                    <ItemArt item={item} fallbackSize={20} fallbackClass="text-[#5b6472]" className="w-12 h-12" />
-                  </div>
-                  <div className="p-1.5">
-                    <div className="text-[10px] font-semibold text-[#EDEEF0] leading-tight truncate">{item.name}</div>
-                    <div className={`text-[9px] font-mono mt-0.5 ${CLASS_COLOR[item.class].split(" ")[0]}`}>{item.class}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={onClose}
-              className="w-full py-2.5 rounded-md bg-[#5B8FC7] text-[#0B0D10] font-semibold text-[13px] hover:bg-[#78A5D6] transition-colors"
-            >
-              Done
-            </button>
+        <div className="relative h-40 flex items-center justify-center bg-[#14171C] border-b border-[#5B8FC7]/30">
+          <button onClick={onClose} className="absolute top-3 right-3 w-7 h-7 rounded-md border border-[#2A2F37] bg-[#0B0D10]/70 flex items-center justify-center text-[#8B92A0] hover:text-[#EDEEF0] transition-colors">
+            <X size={14} />
+          </button>
+          <div className="absolute top-3 left-3 text-[10px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 rounded bg-black/60 border border-[#5B8FC7]/40 text-[#5B8FC7]">
+            Drop Result
           </div>
-        )}
+          <ItemArt item={item} fallbackSize={44} fallbackClass="text-[#5B8FC7]" className="w-28 h-28 rounded-lg" />
+        </div>
+        <div className="p-5 text-center">
+          <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-1.5">You won</div>
+          <h3 className="text-[22px] font-bold text-[#EDEEF0] mb-1" style={{ fontFamily: "'Oswald', sans-serif" }}>{item.name}</h3>
+          <span className={`inline-block text-[11px] font-mono px-2 py-0.5 rounded border ${CLASS_COLOR[item.class]} mb-4`}>{item.class}</span>
+          <p className="text-[13px] text-[#8B92A0] leading-relaxed mb-5">{item.desc}</p>
+          <button
+            onClick={onClose}
+            className="w-full py-2.5 rounded-md bg-[#5B8FC7] text-[#0B0D10] font-semibold text-[13px] hover:bg-[#78A5D6] transition-colors"
+          >
+            Nice
+          </button>
+        </div>
       </div>
     </div>
   );
 }
+
 function SectionLabel({ eyebrow, title, desc, right }) {
   return (
     <div className="flex items-start justify-between gap-6 flex-wrap mb-6">
@@ -703,6 +625,7 @@ function SectionLabel({ eyebrow, title, desc, right }) {
     </div>
   );
 }
+
 function StatBar({ statKey, label, value }) {
   const sc = STAT_SCALE[statKey] ?? { max: 100, unit: "" };
   const raw = Math.max(0, Math.min(1, value / sc.max));
@@ -719,6 +642,7 @@ function StatBar({ statKey, label, value }) {
     </div>
   );
 }
+
 function DetailModal({ item, onClose }) {
   if (!item) return null;
   const pillBase = "text-[11px] font-mono px-2.5 py-1 rounded-md border";
@@ -749,14 +673,17 @@ function DetailModal({ item, onClose }) {
               <X size={14} />
             </button>
           </div>
+
           {item.icon && (
             <div className="flex justify-center mb-4">
               <ItemArt item={item} className="w-32 h-32 rounded-lg" />
             </div>
           )}
+
           <h3 className="text-[22px] font-bold text-[#EDEEF0] mb-1" style={{ fontFamily: "'Oswald', sans-serif" }}>{item.name}</h3>
           {item.kind && <div className="text-[12px] font-mono text-[#5B8FC7] mb-3">{item.kind}</div>}
           <p className="text-[13px] text-[#8B92A0] leading-relaxed mb-5">{item.desc}</p>
+
           {item.stats && (
             <>
               <div className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#5B8FC7] mb-3">
@@ -782,6 +709,7 @@ function DetailModal({ item, onClose }) {
               )}
             </>
           )}
+
           <div className="flex gap-1.5 flex-wrap">
             {item.tags.map((t) => (
               <span key={t} className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#2A2F37] text-[#8B92A0]">{t}</span>
@@ -792,44 +720,59 @@ function DetailModal({ item, onClose }) {
     </div>
   );
 }
+
 /* ------------------------------------------------------------------ */
 /*  MAIN                                                                */
 /* ------------------------------------------------------------------ */
 export default function IllegalHelperSite() {
   const [rollCat, setRollCat] = useState("Firearms");
   const [rollTier, setRollTier] = useState("Tier 1");
-  const [rollSlots, setRollSlots] = useState(() => Array(SLOT_COUNT).fill(CATALOG[0]));
+  const [rollSlots, setRollSlots] = useState(() => Array(8).fill(CATALOG[0]));
   const [spinning, setSpinning] = useState(false);
-  const [wonItems, setWonItems] = useState([]);
-  const [landedIdx, setLandedIdx] = useState(null);
+  const [wonItem, setWonItem] = useState(null);
   const spinTimer = useRef(null);
+
   const [skillTab, setSkillTab] = useState("Faction");
+
   const [catFilter, setCatFilter] = useState("All");
   const [classFilter, setClassFilter] = useState("All");
   const [kindFilter, setKindFilter] = useState("All");
   const [query, setQuery] = useState("");
   const [activeItem, setActiveItem] = useState(null);
+
   // only weapons are tiered — drugs roll from one flat pool
   const rollPool = useMemo(
     () => CATALOG.filter((i) => i.cat === rollCat && (rollCat !== "Firearms" || i.tier === rollTier)),
     [rollCat, rollTier]
   );
-  const odds = useMemo(() => poolOdds(rollPool), [rollPool]);
+
   useEffect(() => {
     if (spinning) return;
-    setWonItems([]);
-    setLandedIdx(null);
-    if (odds.length === 0) {
-      setRollSlots(Array(SLOT_COUNT).fill(null));
+    setWonItem(null);
+    if (rollPool.length === 0) {
+      setRollSlots(Array(8).fill(null));
       return;
     }
-    // idle tiles are drawn weighted too, so the reel you stare at before
-    // rolling is already an honest sample of what the tier hands out
-    setRollSlots(Array.from({ length: SLOT_COUNT }, () => pickWeighted(odds)));
+    setRollSlots(
+      Array.from({ length: 8 }, () => rollPool[Math.floor(Math.random() * rollPool.length)])
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rollCat, rollTier]);
+
   // clean up the spin interval if the component unmounts mid-roll
   useEffect(() => () => clearInterval(spinTimer.current), []);
+
+  const trackSummary = useMemo(() => {
+    const items = SKILLS[skillTab].items;
+    const levels = items.map((s) => s.level);
+    return {
+      totalSp: items.reduce((n, s) => n + s.sp, 0),
+      minLevel: Math.min(...levels),
+      maxLevel: Math.max(...levels),
+      exclusive: items.filter((s) => SKILL_TRACK_COUNT[s.id] === 1).length,
+    };
+  }, [skillTab]);
+
   const filteredCatalog = useMemo(() => {
     return CATALOG.filter((i) => {
       const catOk = catFilter === "All" || i.cat === catFilter;
@@ -839,53 +782,39 @@ export default function IllegalHelperSite() {
       return catOk && clsOk && kindOk && qOk;
     }).sort((a, b) => (a.rank ?? 999) - (b.rank ?? 999));
   }, [catFilter, classFilter, kindFilter, query]);
-  /* ----------------------------------------------------------------
-     The results are drawn UP FRONT, before a single frame animates.
-     The old version span the tiles and then grabbed whichever one it
-     happened to land on, which meant the odds were really "whatever
-     the catalog composition is" — a Mythic was ~1-in-25 in Tier 2 by
-     accident, not by design. Now the weighted draw decides, and the
-     animation is just theatre that resolves onto the real answer.
-     ---------------------------------------------------------------- */
-  function spin(count) {
-    if (odds.length === 0 || spinning) return;
+
+  function rollRandom() {
+    if (rollPool.length === 0 || spinning) return;
     setSpinning(true);
-    setWonItems([]);
-    setLandedIdx(null);
-    const results = Array.from({ length: count }, () => pickWeighted(odds));
-    const landing = Math.floor(Math.random() * SLOT_COUNT);
+    setWonItem(null);
     let ticks = 0;
     clearInterval(spinTimer.current);
     spinTimer.current = setInterval(() => {
       ticks++;
-      setRollSlots(Array.from({ length: SLOT_COUNT }, () => pickWeighted(odds)));
+      setRollSlots((prev) =>
+        prev.map(() => rollPool[Math.floor(Math.random() * rollPool.length)])
+      );
       if (ticks > 12) {
         clearInterval(spinTimer.current);
         setSpinning(false);
         setRollSlots((prev) => {
-          const next = [...prev];
-          if (count === 1) {
-            next[landing] = results[0];
-          } else {
-            // a 10-pull can't fit in 8 tiles; show the first 8 real results
-            // and let the modal carry the full set
-            results.slice(0, SLOT_COUNT).forEach((r, i) => { next[i] = r; });
-          }
-          return next;
+          const finalPrize = prev[Math.floor(Math.random() * prev.length)];
+          setWonItem(finalPrize);
+          return prev;
         });
-        if (count === 1) setLandedIdx(landing);
-        setWonItems(results);
       }
     }, 70);
   }
-  const poolEmpty = odds.length === 0;
+
   return (
     <div className="min-h-screen bg-[#0B0D10] text-[#EDEEF0]" style={{ fontFamily: "'Inter', sans-serif" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
       `}</style>
+
       <DetailModal item={activeItem} onClose={() => setActiveItem(null)} />
-      <ResultModal items={wonItems} onClose={() => setWonItems([])} />
+      <WinModal item={wonItem} onClose={() => setWonItem(null)} />
+
       {/* NAV */}
       <div className="sticky top-0 z-30 backdrop-blur bg-[#0B0D10]/85 border-b border-[#1E2126]">
         <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
@@ -902,6 +831,7 @@ export default function IllegalHelperSite() {
           </div>
         </div>
       </div>
+
       {/* HERO */}
       <div className="relative overflow-hidden">
         <div
@@ -911,6 +841,7 @@ export default function IllegalHelperSite() {
         {/* fade to bg color so text stays readable, heaviest on the left where copy sits */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B0D10] via-[#0B0D10]/85 to-[#0B0D10]/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D10] via-transparent to-[#0B0D10]/40" />
+
         <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-14">
           <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight max-w-2xl" style={{ fontFamily: "'Oswald', sans-serif" }}>
             The 312 Illegal Wiki
@@ -932,13 +863,14 @@ export default function IllegalHelperSite() {
           </div>
         </div>
       </div>
+
       {/* SUPPLY DROP / ROLL */}
       <div id="drop" className="border-t border-[#1E2126]">
         <div className="max-w-6xl mx-auto px-6 py-14">
           <SectionLabel
             eyebrow="Random Draw"
             title="Supply Drop"
-            desc="Roll against the current tier's pool. The percentages below are the live odds this roller uses — rarity is drawn first, then an item inside it, so the numbers hold no matter how many guns share a rarity."
+            desc="Roll against the current tier's pool. Odds are shown by classification — Common through Mythic. Tap any tag for full stats."
             right={
               <div className="flex flex-col items-end gap-2">
                 <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
@@ -962,68 +894,42 @@ export default function IllegalHelperSite() {
               </div>
             }
           />
-          <div className="rounded-md border border-[#2A2F37] bg-[#0E1013] px-4 py-3.5 mb-4">
-            <div className="flex items-center justify-between gap-3 mb-2.5 flex-wrap">
-              <span className="text-[11px] font-mono tracking-[0.15em] uppercase text-[#5B8FC7]">
-                Drop rates — {rollCat === "Firearms" ? rollTier : "all products"}
-              </span>
-              <span className="text-[11px] font-mono text-[#5b6472]">
-                {rollPool.length} item{rollPool.length === 1 ? "" : "s"} in pool
-              </span>
-            </div>
-            {poolEmpty ? (
-              <div className="text-[12px] text-[#5b6472]">Nothing in this pool yet.</div>
-            ) : (
-              <OddsRow odds={odds} compact />
-            )}
-          </div>
+
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 mb-4">
             {rollSlots.map((item, idx) =>
               item ? (
-                <EvidenceTag
-                  key={idx}
-                  item={item}
-                  spinning={spinning}
-                  landed={landedIdx === idx}
-                  onClick={setActiveItem}
-                />
+                <EvidenceTag key={idx} item={item} spinning={spinning} onClick={setActiveItem} />
               ) : (
                 <div key={idx} className="rounded-md border border-dashed border-[#2A2F37] h-[152px]" />
               )
             )}
           </div>
-          <div className="grid sm:grid-cols-[1fr_auto] gap-3">
-            <button
-              onClick={() => spin(1)}
-              disabled={poolEmpty || spinning}
-              className="w-full flex items-center justify-center gap-2 py-4 rounded-md bg-[#EDEEF0] text-[#0B0D10] font-semibold text-[14px] tracking-wide hover:bg-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <Dice5 size={17} className={spinning ? "animate-spin" : ""} />
-              {poolEmpty ? "No items in this tier yet" : "ROLL RANDOM"}
-            </button>
-            <button
-              onClick={() => spin(MULTI_PULL)}
-              disabled={poolEmpty || spinning}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-md border border-[#5B8FC7]/60 bg-[#5B8FC7]/10 text-[#5B8FC7] font-semibold text-[14px] tracking-wide hover:bg-[#5B8FC7]/20 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <Layers size={17} /> ROLL {MULTI_PULL}×
-            </button>
-          </div>
+
+          <button
+            onClick={rollRandom}
+            disabled={rollPool.length === 0}
+            className="w-full flex items-center justify-center gap-2 py-4 rounded-md bg-[#EDEEF0] text-[#0B0D10] font-semibold text-[14px] tracking-wide hover:bg-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <Dice5 size={17} className={spinning ? "animate-spin" : ""} />
+            {rollPool.length === 0 ? "No items in this tier yet" : "ROLL RANDOM"}
+          </button>
         </div>
       </div>
+
       {/* SKILLS */}
       <div id="skills" className="border-t border-[#1E2126]">
         <div className="max-w-6xl mx-auto px-6 py-14">
           <SectionLabel
             eyebrow="New Roleplayer Helper"
             title="Skill Information"
-            desc="A clear guide for players to check what each route can unlock. Faction reflects the real skill list; the other tracks are placeholders for future expansion."
+            desc="Every unlock on all three routes, straight from the server config — the level it opens at, what it costs in skill points, and how many you get to pre-select when you register."
             right={
               <div className="text-[11px] font-mono px-2.5 py-1 rounded border border-[#2A2F37] text-[#8B92A0] flex items-center gap-1.5 h-fit">
                 <Shield size={12} /> {Object.keys(SKILLS).length} character paths
               </div>
             }
           />
+
           <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1 w-fit mb-6">
             {Object.keys(SKILLS).map((tab) => (
               <button key={tab} onClick={() => setSkillTab(tab)}
@@ -1032,36 +938,55 @@ export default function IllegalHelperSite() {
               </button>
             ))}
           </div>
+
           <div className="grid md:grid-cols-[1fr_280px] gap-5 items-start">
             <div className="rounded-md border border-[#2A2F37] bg-[#0E1013]">
               <div className="flex items-center justify-between px-4 py-3 border-b border-[#2A2F37]">
                 <span className="text-[13px] font-semibold text-[#EDEEF0]">{skillTab} skill tree</span>
-                <span className="text-[11px] font-mono text-[#8B92A0]">{SKILLS[skillTab].items.length} skills listed</span>
+                <span className="text-[11px] font-mono text-[#8B92A0]">{SKILLS[skillTab].items.length} skills · {trackSummary.totalSp} SP total</span>
               </div>
               <div className="divide-y divide-[#1E2126]">
-                {SKILLS[skillTab].items.map((s, i) => (
-                  <div key={i} className="flex gap-4 px-4 py-4">
-                    <div className="shrink-0 w-12 text-center">
-                      <div className="text-[9px] font-mono tracking-widest text-[#8B92A0] uppercase">Unlock</div>
-                      <div className="text-2xl font-bold text-[#5B8FC7]" style={{ fontFamily: "'Oswald', sans-serif" }}>{s.unlock}</div>
+                {SKILLS[skillTab].items.map((s) => (
+                  <div key={s.id} className="flex gap-4 px-4 py-4">
+                    <div className="shrink-0 w-14 text-center">
+                      <div className="text-[9px] font-mono tracking-widest text-[#8B92A0] uppercase">Level</div>
+                      <div className="text-2xl font-bold text-[#5B8FC7] leading-tight" style={{ fontFamily: "'Oswald', sans-serif" }}>{s.level}</div>
+                      <div className="text-[10px] font-mono text-[#5b6472] mt-0.5">{s.sp} SP</div>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <div className="text-[14px] font-semibold text-[#EDEEF0]">{s.name}</div>
                       <div className="text-[13px] text-[#8B92A0] mt-0.5 leading-relaxed">{s.desc}</div>
-                      <div className="flex gap-1.5 mt-2">
-                        {s.tags.map((t) => (
-                          <span key={t} className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#2A2F37] text-[#8B92A0]">{t}</span>
-                        ))}
+                      <div className="flex gap-1.5 mt-2 flex-wrap">
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#2A2F37] text-[#8B92A0]">{s.tag}</span>
+                        {SKILL_TRACK_COUNT[s.id] > 1 && (
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#5B8FC7]/40 text-[#5B8FC7]">
+                            On {SKILL_TRACK_COUNT[s.id]} tracks
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
             <div className="rounded-md border border-[#2A2F37] bg-[#0E1013] p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[13px] font-semibold">Other path tabs</span>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#2A2F37] text-[#8B92A0]">Placeholder sets</span>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[13px] font-semibold">{skillTab} at a glance</span>
+              </div>
+              <div className="flex flex-col gap-2 mb-3">
+                {[
+                  ["Pre-select at registration", `${SKILLS[skillTab].max} skills`],
+                  ["Skills on this track", `${SKILLS[skillTab].items.length}`],
+                  ["Level range", `${trackSummary.minLevel} – ${trackSummary.maxLevel}`],
+                  ["SP for the full tree", `${trackSummary.totalSp}`],
+                  ["Exclusive to this track", `${trackSummary.exclusive}`],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex items-baseline justify-between gap-3 border-b border-[#1E2126] pb-1.5 last:border-0">
+                    <span className="text-[11.5px] text-[#8B92A0]">{label}</span>
+                    <span className="text-[12px] font-mono text-[#EDEEF0] shrink-0">{value}</span>
+                  </div>
+                ))}
               </div>
               <div className="rounded border border-[#5B8FC7]/30 bg-[#5B8FC7]/[0.06] p-3">
                 <div className="text-[11px] font-mono uppercase tracking-wider text-[#5B8FC7] mb-1">Guide note</div>
@@ -1071,6 +996,7 @@ export default function IllegalHelperSite() {
           </div>
         </div>
       </div>
+
       {/* CATALOG */}
       <div id="catalog" className="relative border-t border-[#1E2126] overflow-hidden">
         <div
@@ -1078,12 +1004,14 @@ export default function IllegalHelperSite() {
           style={{ backgroundImage: `url('${ASSET_BASE}assets/icg_collage_1920x1080.png')` }}
         />
         <div className="absolute inset-0 bg-[#0B0D10]/70" />
+
         <div className="relative max-w-6xl mx-auto px-6 py-14">
           <SectionLabel
             eyebrow="All Items + Descriptions"
             title="Weapon & Product Catalog"
             desc="Every weapon in the pack ranked on its real in-game stats — damage, magazine, fire rate, DPS and time-to-kill — plus every product and exactly what it does to you, pulled straight from the server files. Click a card for the full breakdown."
           />
+
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div className="flex flex-wrap gap-2">
               <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
@@ -1113,6 +1041,7 @@ export default function IllegalHelperSite() {
               />
             </div>
           </div>
+
           <div className="flex flex-wrap gap-1.5 mb-6">
             {["All", ...CLASS_ORDER].map((c) => (
               <button key={c} onClick={() => setClassFilter(c)}
@@ -1128,9 +1057,11 @@ export default function IllegalHelperSite() {
               </button>
             ))}
           </div>
+
           <div className="text-[12px] font-mono text-[#5b6472] mb-4">
             {filteredCatalog.length} {filteredCatalog.length === 1 ? "item" : "items"}
           </div>
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
             {filteredCatalog.map((item) => (
               // flex + items-stretch is deliberate: a <button> gets `align-items: center`
@@ -1168,6 +1099,7 @@ export default function IllegalHelperSite() {
           </div>
         </div>
       </div>
+
       <div className="border-t border-[#1E2126] py-8">
         <div className="max-w-6xl mx-auto px-6 text-[11px] font-mono text-[#5b6472] text-center">
           THE 312 RP — internal helper, not affiliated with Rockstar Games or Take-Two Interactive.
