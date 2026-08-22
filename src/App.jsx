@@ -332,57 +332,57 @@ const CATALOG = [
     stats: { damage: 26, magazine: 12, fireRate: 162, dps: 70, ttk: 2.59 } },
 
   /* ---------------- DRUGS — pulled from drugs.json ---------------- */
-  { id: "xanax3mg", name: "Xanax 3mg", cat: "Drugs", tier: "Tier 2", class: "Legendary",
+  { id: "xanax3mg", name: "Xanax 3mg", cat: "Drugs", class: "Legendary",
     icon: "DRUG_XANAX3MG.png", rank: 101,
     desc: "The green bar. 100 health regenerated across a full minute with nothing attached to pay for it — the strongest clean heal on the street.",
     tags: ["Health regen", "No downside", "Long duration"],
     stats: { consume: "Pill", duration: "60s", effect: "+100 health regen over 60s", downside: "None" } },
-  { id: "xanax2mg", name: "Xanax 2mg", cat: "Drugs", tier: "Tier 2", class: "Epic",
+  { id: "xanax2mg", name: "Xanax 2mg", cat: "Drugs", class: "Epic",
     icon: "DRUG_XANAX2MG.png", rank: 102,
     desc: "Half the bar, half the heal. 50 health back over thirty seconds with no stagger and no vision hit — the one you pop mid-fight.",
     tags: ["Health regen", "No downside"],
     stats: { consume: "Pill", duration: "30s", effect: "+50 health regen over 30s", downside: "None" } },
-  { id: "grenades", name: "Grenades", cat: "Drugs", tier: "Tier 2", class: "Epic",
+  { id: "grenades", name: "Grenades", cat: "Drugs", class: "Epic",
     icon: "DRUG_GRENADES.png", rank: 103,
     desc: "Flat 30 armor the second it lands, no timer and nothing owed. The biggest single armor hit in the pack and the cleanest pre-fight pop there is.",
     tags: ["Armor", "Instant", "No downside"],
     stats: { consume: "Pill", duration: "Instant", effect: "+30 armor", downside: "None" } },
-  { id: "tpil", name: "Tessie Pill", cat: "Drugs", tier: "Tier 1.5", class: "Epic",
+  { id: "tpil", name: "Tessie Pill", cat: "Drugs", class: "Epic",
     icon: "DRUG_TPIL.png", rank: 104,
     desc: "20 armor up front plus 10% run speed for thirty seconds. Armor and legs out of one pill, which is why it rarely sits in stock long.",
     tags: ["Armor", "Run speed", "No downside"],
     stats: { consume: "Pill", duration: "30s", effect: "+20 armor, +10 run speed for 30s", downside: "None" } },
-  { id: "twocb", name: "2CB", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
+  { id: "twocb", name: "2CB", cat: "Drugs", class: "Rare",
     icon: "DRUG_2CB.png", rank: 105,
     desc: "25 armor instantly, nothing else attached. Five points behind Grenades and does effectively the same job for a lot less.",
     tags: ["Armor", "Instant", "No downside"],
     stats: { consume: "Pill", duration: "Instant", effect: "+25 armor", downside: "None" } },
-  { id: "adderall", name: "Adderall", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
+  { id: "adderall", name: "Adderall", cat: "Drugs", class: "Rare",
     icon: "DRUG_ADDERALL.png", rank: 106,
     desc: "Kills all screenshake until you restart — the closest thing to a scope on a switch. Costs 10 health and blurs your vision for the first thirty seconds.",
     tags: ["No screenshake", "Aim aid", "Blurred vision"],
     stats: { consume: "Snort", duration: "Until restart", effect: "Removes all screenshake", downside: "-10 health, blurred vision for 30s" } },
-  { id: "perc", name: "Percocet", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
+  { id: "perc", name: "Percocet", cat: "Drugs", class: "Rare",
     icon: "DRUG_PERC.png", rank: 107,
     desc: "Reactive 8 armor that holds for five full minutes — far and away the longest cover window on the list. You pay 30 health and walk with a heavy stagger while it settles.",
     tags: ["Reactive armor", "Long duration", "Heavy stagger"],
     stats: { consume: "Pill", duration: "300s", effect: "+8 reactive armor for 300s", downside: "-30 health, heavy stagger for 30s" } },
-  { id: "xanax1mg", name: "Xanax 1mg", cat: "Drugs", tier: "Tier 1.5", class: "Rare",
+  { id: "xanax1mg", name: "Xanax 1mg", cat: "Drugs", class: "Rare",
     icon: "DRUG_XANAX1MG.png", rank: 108,
     desc: "The white oval. 25 health over fifteen seconds — a quick top-off between fights, nothing more than that.",
     tags: ["Health regen", "No downside", "Quick"],
     stats: { consume: "Pill", duration: "15s", effect: "+25 health regen over 15s", downside: "None" } },
-  { id: "hydrocodone", name: "HydroCodone", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
+  { id: "hydrocodone", name: "HydroCodone", cat: "Drugs", class: "Uncommon",
     icon: "DRUG_HYDROCODONE.png", rank: 109,
     desc: "Reactive 8 armor for fifteen seconds, bought with 30 health and 25 thirst. The trade only pays if you're already in the fight when you take it.",
     tags: ["Reactive armor", "Short duration", "Health cost"],
     stats: { consume: "Pill", duration: "15s", effect: "+8 reactive armor for 15s", downside: "-30 health, -25 thirst" } },
-  { id: "oxy", name: "Oxy", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
+  { id: "oxy", name: "Oxy", cat: "Drugs", class: "Uncommon",
     icon: "DRUG_OXY.png", rank: 110,
     desc: "Same numbers as Hydro down to the decimal — 8 reactive armor for fifteen seconds against 30 health and 25 thirst. Different label, identical trade.",
     tags: ["Reactive armor", "Short duration", "Health cost"],
     stats: { consume: "Pill", duration: "15s", effect: "+8 reactive armor for 15s", downside: "-30 health, -25 thirst" } },
-  { id: "dmt", name: "DMT", cat: "Drugs", tier: "Tier 1", class: "Uncommon",
+  { id: "dmt", name: "DMT", cat: "Drugs", class: "Uncommon",
     icon: "DRUG_DMT.png", rank: 111,
     desc: "5 armor and a 15% run speed bump for fifteen seconds. Small numbers, but it's the only clean speed item this far down the list.",
     tags: ["Run speed", "Armor", "No downside"],
@@ -479,9 +479,11 @@ function EvidenceTag({ item, spinning, onClick, large }) {
       onClick={() => onClick(item)}
       className={`relative flex h-full w-full flex-col items-stretch rounded-md border border-[#2A2F37] bg-[#14171C] overflow-hidden transition-transform duration-150 text-left ${spinning ? "scale-[0.97]" : "hover:border-[#454b55]"}`}
     >
-      <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
-        {item.tier.replace("Tier ", "T")}
-      </div>
+      {item.tier && (
+        <div className={`absolute z-10 font-mono tracking-wider rounded-sm bg-black/60 border border-[#3a3f47] text-[#5B8FC7] rotate-3 ${large ? "top-2.5 right-2.5 text-[11px] px-2 py-1" : "top-1.5 right-1.5 text-[9px] px-1.5 py-0.5"}`}>
+          {item.tier.replace("Tier ", "T")}
+        </div>
+      )}
       <div className={`flex items-center justify-center bg-[#0E1013] border-b border-[#2A2F37] overflow-hidden ${large ? "h-36" : "h-20"}`}>
         <div className={spinning ? "opacity-70 animate-pulse" : ""}>
           <ItemArt
@@ -586,7 +588,9 @@ function DetailModal({ item, onClose }) {
               <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>
                 {item.cat === "Firearms" ? "Weapon" : "Drug"}
               </span>
-              <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>{item.tier}</span>
+              {item.tier && (
+                <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>{item.tier}</span>
+              )}
               {item.cat === "Firearms" && (
                 <span className={`${pillBase} text-[#8B92A0] border-[#2A2F37] bg-[#14171C]`}>#{item.rank} of {COUNTS.Firearms}</span>
               )}
@@ -662,9 +666,9 @@ export default function IllegalHelperSite() {
   const [query, setQuery] = useState("");
   const [activeItem, setActiveItem] = useState(null);
 
-  // both categories carry tiers now, so the tier tabs apply to drugs too
+  // only weapons are tiered — drugs roll from one flat pool
   const rollPool = useMemo(
-    () => CATALOG.filter((i) => i.cat === rollCat && i.tier === rollTier),
+    () => CATALOG.filter((i) => i.cat === rollCat && (rollCat !== "Firearms" || i.tier === rollTier)),
     [rollCat, rollTier]
   );
 
@@ -792,14 +796,16 @@ export default function IllegalHelperSite() {
                     </button>
                   ))}
                 </div>
-                <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
-                  {TIERS.map((t) => (
-                    <button key={t} onClick={() => setRollTier(t)}
-                      className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollTier === t ? "bg-[#2A2F37] text-[#EDEEF0]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
-                      {t}
-                    </button>
-                  ))}
-                </div>
+                {rollCat === "Firearms" && (
+                  <div className="flex gap-1 bg-[#14171C] border border-[#2A2F37] rounded-md p-1">
+                    {TIERS.map((t) => (
+                      <button key={t} onClick={() => setRollTier(t)}
+                        className={`px-3 py-1.5 rounded text-[12px] font-medium transition-colors ${rollTier === t ? "bg-[#2A2F37] text-[#EDEEF0]" : "text-[#8B92A0] hover:text-[#EDEEF0]"}`}>
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             }
           />
@@ -973,7 +979,7 @@ export default function IllegalHelperSite() {
                     <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded border ${CLASS_COLOR[item.class]}`}>{item.class}</span>
                   </div>
                   <div className="text-[11px] font-mono text-[#5b6472] mb-2">
-                    {item.kind ? `${item.kind} · #${item.rank} overall` : `${item.tier} · ${item.stats?.consume ?? "Product"}`}
+                    {item.kind ? `${item.kind} · #${item.rank} overall` : `${item.stats?.consume ?? "Product"} · ${item.stats?.duration ?? ""}`}
                   </div>
                   <p className="text-[12.5px] text-[#8B92A0] leading-relaxed mb-3">{item.desc}</p>
                   {/* mt-auto pins the tag row to the bottom so cards in a row line up */}
